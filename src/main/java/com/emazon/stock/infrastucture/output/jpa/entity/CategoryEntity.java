@@ -1,10 +1,14 @@
 package com.emazon.stock.infrastucture.output.jpa.entity;
 
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
+import lombok.*;
 
 @Entity
 @Table(name = "category")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class CategoryEntity {
 
     @Id

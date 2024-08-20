@@ -15,8 +15,8 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
     
     @Override
-    public void SaveCategory(Category category) {
-        this.categoryPersistencePort.SaveCategory(category);
+    public void saveCategory(Category category) {
+        this.categoryPersistencePort.saveCategory(category);
     }
 
     @Override

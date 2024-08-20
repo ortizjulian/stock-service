@@ -5,7 +5,7 @@ import com.emazon.stock.application.dto.CategoryDto;
 import java.util.List;
 
 public interface ICategoryHandler {
-    void SaveCategory(CategoryDto categoryDto);
+    void saveCategory(CategoryDto categoryDto);
     List<CategoryDto> getAllCategories();
     void updateCategory(CategoryDto categoryDto);
     void deleteCategory(String categoryName);

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ICategoryPersistencePort {
 
-    void SaveCategory(Category category);
+    void saveCategory(Category category);
     List<Category> getAllCategories();
     void updateCategory(Category category);
     void deleteCategory(String categoryName);
