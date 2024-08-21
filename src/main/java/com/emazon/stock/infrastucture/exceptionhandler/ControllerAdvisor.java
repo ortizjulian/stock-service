@@ -26,7 +26,7 @@ public class ControllerAdvisor {
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleCategoryNotFoundException(
             CategoryNotFoundException categoryNotFoundException) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(MESSAGE, categoryNotFoundException.getMessage()));
     }
 
