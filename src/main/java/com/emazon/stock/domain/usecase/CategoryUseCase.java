@@ -4,9 +4,9 @@ import com.emazon.stock.domain.api.ICategoryServicePort;
 import com.emazon.stock.domain.exception.DataConstraintViolationException;
 import com.emazon.stock.domain.exception.MissingAttributeException;
 import com.emazon.stock.domain.model.Category;
+import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.domain.spi.ICategoryPersistencePort;
-
-import java.util.List;
+import com.emazon.stock.domain.utils.PaginationValidator;
 
 public class CategoryUseCase implements ICategoryServicePort {
 
@@ -35,8 +35,9 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
     @Override
-    public List<Category> getAllCategories() {
-        return this.categoryPersistencePort.getAllCategories();
+    public PageCustom<Category> getAllCategories(int page, int size, String sortDirection, String sortBy) {
+        PaginationValidator.validatePagination(page,size,sortDirection,sortBy);
+        return this.categoryPersistencePort.getAllCategories(page,size,sortDirection,sortBy);
     }
 
     @Override

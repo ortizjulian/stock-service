@@ -2,6 +2,7 @@ package com.emazon.stock.infrastucture.input.rest;
 
 import com.emazon.stock.application.dto.CategoryDto;
 import com.emazon.stock.application.handler.ICategoryHandler;
+import com.emazon.stock.domain.model.PageCustom;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -9,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("category")
@@ -24,8 +23,13 @@ public class CategoryRestController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of categories"),
     })
     @GetMapping
-    public ResponseEntity<List<CategoryDto>> getAllCategories(){
-        return ResponseEntity.ok(categoryHandler.getAllCategories());
+    public ResponseEntity<PageCustom<CategoryDto>> getAllCategories(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "ASC") String sortDirection,
+            @RequestParam(defaultValue= "name") String sortBy
+    ){
+        return ResponseEntity.ok(categoryHandler.getAllCategories(page,size,sortDirection,sortBy));
     }
 
     @Operation(summary = "Create a new category", description = "Adds a new category to the system.")
