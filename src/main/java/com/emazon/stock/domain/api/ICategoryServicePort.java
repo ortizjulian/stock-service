@@ -1,13 +1,11 @@
 package com.emazon.stock.domain.api;
 
 import com.emazon.stock.domain.model.Category;
-
-import java.util.List;
-
+import com.emazon.stock.domain.model.PageCustom;
 public interface ICategoryServicePort {
 
     void saveCategory(Category category);
-    List<Category> getAllCategories();
+    PageCustom<Category> getAllCategories(int page, int size, String sortDirection, String sortBy);
     void updateCategory(Category category);
     void deleteCategory(String categoryName);
 }

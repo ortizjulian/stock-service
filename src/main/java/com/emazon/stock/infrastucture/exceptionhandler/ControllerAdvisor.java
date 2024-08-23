@@ -1,6 +1,7 @@
 package com.emazon.stock.infrastucture.exceptionhandler;
 import com.emazon.stock.domain.exception.DataConstraintViolationException;
 import com.emazon.stock.domain.exception.MissingAttributeException;
+import com.emazon.stock.domain.exception.PaginationParametersInvalidException;
 import com.emazon.stock.infrastucture.exception.CategoryAlreadyExistsException;
 import com.emazon.stock.infrastucture.exception.CategoryNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -43,4 +44,13 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(MESSAGE, dataConstraintViolationException.getMessage()));
     }
+
+    @ExceptionHandler(PaginationParametersInvalidException.class)
+    public ResponseEntity<Map<String, String>> handlePaginationParametersInvalidException(
+            PaginationParametersInvalidException paginationParametersInvalidException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(MESSAGE, paginationParametersInvalidException.getMessage()));
+    }
+
+
 }
