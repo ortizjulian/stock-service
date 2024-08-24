@@ -1,5 +1,4 @@
 package com.emazon.stock.infrastucture.exceptionhandler;
-import com.emazon.stock.domain.exception.InvalidPathVariableException;
 import com.emazon.stock.domain.exception.PaginationParametersInvalidException;
 import com.emazon.stock.domain.exception.CategoryAlreadyExistsException;
 import com.emazon.stock.domain.exception.CategoryNotFoundException;
