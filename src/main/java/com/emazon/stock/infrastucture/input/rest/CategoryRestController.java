@@ -3,6 +3,7 @@ package com.emazon.stock.infrastucture.input.rest;
 import com.emazon.stock.application.dto.CategoryDto;
 import com.emazon.stock.application.handler.ICategoryHandler;
 import com.emazon.stock.domain.model.PageCustom;
+import com.emazon.stock.utils.Constants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -27,10 +28,10 @@ public class CategoryRestController {
     })
     @GetMapping
     public ResponseEntity<PageCustom<CategoryDto>> getAllCategories(
-            @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer size,
-            @RequestParam(defaultValue = "ASC") String sortDirection,
-            @RequestParam(defaultValue= "name") String sortBy
+            @RequestParam(defaultValue = Constants.DEFAULT_PAGE) Integer page,
+            @RequestParam(defaultValue = Constants.DEFAULT_SIZE) Integer size,
+            @RequestParam(defaultValue = Constants.DEFAULT_SORT_DIRECTION) String sortDirection,
+            @RequestParam(defaultValue = Constants.DEFAULT_SORT_BY) String sortBy
     ){
         return ResponseEntity.ok(categoryHandler.getAllCategories(page,size,sortDirection,sortBy));
     }
@@ -53,7 +54,7 @@ public class CategoryRestController {
             @ApiResponse(responseCode = "404", description = "Category not found"),
     })
     @PutMapping
-    public ResponseEntity<Void> updateCategory(@RequestBody CategoryDto categoryDto) {
+    public ResponseEntity<Void> updateCategory(@Valid @RequestBody CategoryDto categoryDto) {
         categoryHandler.updateCategory(categoryDto);
         return ResponseEntity.noContent().build();
     }

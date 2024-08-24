@@ -2,6 +2,7 @@ package com.emazon.stock.infrastucture.exceptionhandler;
 import com.emazon.stock.domain.exception.PaginationParametersInvalidException;
 import com.emazon.stock.domain.exception.CategoryAlreadyExistsException;
 import com.emazon.stock.domain.exception.CategoryNotFoundException;
+import com.emazon.stock.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -16,7 +17,7 @@ import java.util.Map;
 @ControllerAdvice
 public class ControllerAdvisor {
 
-    private static final String MESSAGE = "Message";
+    private static final String MESSAGE = Constants.RESPONSE_MESSAGE_KEY;
 
     @ExceptionHandler(CategoryAlreadyExistsException.class)
     public ResponseEntity<Map<String, String>> handleCategoryAlreadyExistsException(

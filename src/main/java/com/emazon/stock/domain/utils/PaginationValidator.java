@@ -1,36 +1,21 @@
 package com.emazon.stock.domain.utils;
 
 import com.emazon.stock.domain.exception.PaginationParametersInvalidException;
+import com.emazon.stock.utils.Constants;
 
 public class PaginationValidator {
 
-    private static final String SORT_DIRECTION_ASC = "ASC";
-    private static final String SORT_DIRECTION_DESC = "DESC";
-    private static final String[] ALLOWED_SORT_BY = {"name", "description"};
-
-    public static void validatePagination(Integer page, Integer size, String sortDirection, String sortBy) {
+    public static void validatePagination(Integer page, Integer size, String sortDirection) {
         if (page < 0) {
-            throw new PaginationParametersInvalidException("Page number cannot be negative.");
+            throw new PaginationParametersInvalidException(Constants.EXCEPTION_PAGE_NUMBER_NEGATIVE);
         }
         if (size < 0) {
-            throw new PaginationParametersInvalidException("Page size cannot be negative.");
+            throw new PaginationParametersInvalidException(Constants.EXCEPTION_PAGE_SIZE_NEGATIVE);
         }
         if (sortDirection == null || sortDirection.isEmpty() ||
-                (!SORT_DIRECTION_ASC.equals(sortDirection) && !SORT_DIRECTION_DESC.equals(sortDirection))) {
-            throw new PaginationParametersInvalidException("Sort direction must be 'ASC' or 'DESC'.");
+                (!Constants.SORT_DIRECTION_ASC.equals(sortDirection) && !Constants.SORT_DIRECTION_DESC.equals(sortDirection))) {
+            throw new PaginationParametersInvalidException(Constants.EXCEPTION_SORT_DIRECTION_INVALID);
         }
-        if (sortBy == null || sortBy.isEmpty() || !isValidSortBy(sortBy)) {
-            throw new PaginationParametersInvalidException("Sort by must be one of the following: 'name', 'description'.");
-        }
-    }
-
-    private static boolean isValidSortBy(String sortBy) {
-        for (String validSortBy : ALLOWED_SORT_BY) {
-            if (validSortBy.equals(sortBy)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
 
