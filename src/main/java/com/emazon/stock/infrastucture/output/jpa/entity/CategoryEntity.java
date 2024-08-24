@@ -1,5 +1,6 @@
 package com.emazon.stock.infrastucture.output.jpa.entity;
 
+import com.emazon.stock.utils.Constants;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,10 +16,10 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, length =50)
+    @Column(unique = true, length = Constants.MAX_CHARACTERS_NAME_CATEGORY)
     private String name;
 
-    @Column(length = 90)
+    @Column(length = Constants.MAX_CHARACTERS_DESCRIPTION_CATEGORY)
     private String description;
 
 }

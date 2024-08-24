@@ -1,7 +1,5 @@
 package com.emazon.stock.domain.usecase;
 
-import com.emazon.stock.domain.exception.DataConstraintViolationException;
-import com.emazon.stock.domain.exception.MissingAttributeException;
 import com.emazon.stock.domain.exception.PaginationParametersInvalidException;
 import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.domain.model.PageCustom;
@@ -106,7 +104,7 @@ class CategoryUseCaseTest {
 
         PageCustom<Category> mockPage = new PageCustom<>();
         mockPage.setContent(categories);
-        mockPage.setTotalElements(3);
+        mockPage.setTotalElements(3L);
         mockPage.setTotalPages(1);
 
         Mockito.when(categoryPersistencePort.getAllCategories(page, size, sortDirection, sortBy))

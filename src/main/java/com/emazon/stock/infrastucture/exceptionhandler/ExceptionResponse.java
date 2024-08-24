@@ -1,7 +1,9 @@
 package com.emazon.stock.infrastucture.exceptionhandler;
 
+import com.emazon.stock.utils.Constants;
+
 public enum ExceptionResponse {
-    CATEGORY_ALREADY_EXISTS("There is already a category with that name");
+    CATEGORY_ALREADY_EXISTS(Constants.EXCEPTION_CATEGORY_ALREADY_EXISTS);
     private String message;
 
     ExceptionResponse(String message) {

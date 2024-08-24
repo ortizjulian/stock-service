@@ -30,7 +30,7 @@ public class CategoryHandler implements ICategoryHandler{
     }
 
     @Override
-    public PageCustom<CategoryDto> getAllCategories(int page, int size, String sortDirection, String sortBy) {
+    public PageCustom<CategoryDto> getAllCategories(Integer page, Integer size, String sortDirection, String sortBy) {
         return pageDtoMapper.toCategoryDtoPageCustom(categoryServicePort.getAllCategories(page,size,sortDirection,sortBy));
     }
 

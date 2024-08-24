@@ -3,8 +3,6 @@ package com.emazon.stock.infrastucture.output.jpa.adapter;
 import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.domain.spi.ICategoryPersistencePort;
-import com.emazon.stock.infrastucture.exception.CategoryAlreadyExistsException;
-import com.emazon.stock.infrastucture.exception.CategoryNotFoundException;
 import com.emazon.stock.infrastucture.output.jpa.entity.CategoryEntity;
 import com.emazon.stock.infrastucture.output.jpa.mapper.CategoryEntityMapper;
 import com.emazon.stock.infrastucture.output.jpa.mapper.PageMapper;
@@ -13,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+
+import java.util.Optional;
 
 public class CategoryJpaAdapter implements ICategoryPersistencePort {
 
@@ -28,10 +28,6 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
 
     @Override
     public void saveCategory(Category category) {
-        if(categoryRepository.findByName(category.getName()).isPresent()){
-            throw new CategoryAlreadyExistsException();
-        }
-
         CategoryEntity categoryEntity = categoryEntityMapper.toEntity(category);
 
         categoryRepository.save(categoryEntity);
@@ -39,7 +35,12 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
     }
 
     @Override
-    public PageCustom<Category> getAllCategories(int page, int size, String sortDirection, String sortBy) {
+    public Boolean findByName(String categoryName) {
+        return categoryRepository.findByName(categoryName).isPresent();
+    }
+
+    @Override
+    public PageCustom<Category> getAllCategories(Integer page, Integer size, String sortDirection, String sortBy) {
         Sort.Direction direction = Sort.Direction.fromString(sortDirection);
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
@@ -50,11 +51,13 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
 
     @Override
     public void updateCategory(Category category) {
-        CategoryEntity categoryEntity = categoryRepository.findByName(category.getName())
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found with name: " + category.getName()));
+        Optional<CategoryEntity> optionalCategoryEntity = categoryRepository.findByName(category.getName());
 
-        categoryEntity.setDescription(category.getDescription());
-        categoryRepository.save(categoryEntity);
+        if (optionalCategoryEntity.isPresent()) {
+            CategoryEntity categoryEntity = optionalCategoryEntity.get();
+            categoryEntity.setDescription(category.getDescription());
+            categoryRepository.save(categoryEntity);
+        }
     }
 
     @Override
