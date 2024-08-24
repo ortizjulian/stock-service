@@ -3,7 +3,6 @@ package com.emazon.stock.infrastucture.output.jpa.adapter;
 import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.domain.spi.ICategoryPersistencePort;
-import com.emazon.stock.domain.exception.CategoryNotFoundException;
 import com.emazon.stock.infrastucture.output.jpa.entity.CategoryEntity;
 import com.emazon.stock.infrastucture.output.jpa.mapper.CategoryEntityMapper;
 import com.emazon.stock.infrastucture.output.jpa.mapper.PageMapper;

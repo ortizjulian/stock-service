@@ -1,15 +1,16 @@
 package com.emazon.stock.infrastucture.exceptionhandler;
-import com.emazon.stock.domain.exception.DataConstraintViolationException;
-import com.emazon.stock.domain.exception.MissingAttributeException;
 import com.emazon.stock.domain.exception.PaginationParametersInvalidException;
 import com.emazon.stock.domain.exception.CategoryAlreadyExistsException;
 import com.emazon.stock.domain.exception.CategoryNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
@@ -31,20 +32,6 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(MESSAGE, categoryNotFoundException.getMessage()));
     }
 
-    @ExceptionHandler(MissingAttributeException.class)
-    public ResponseEntity<Map<String, String>> handleMissingAttributeException(
-            MissingAttributeException missingAttributeException) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Collections.singletonMap(MESSAGE, missingAttributeException.getMessage()));
-    }
-
-    @ExceptionHandler(DataConstraintViolationException.class)
-    public ResponseEntity<Map<String, String>> handleDataConstraintViolationException(
-            DataConstraintViolationException dataConstraintViolationException) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Collections.singletonMap(MESSAGE, dataConstraintViolationException.getMessage()));
-    }
-
     @ExceptionHandler(PaginationParametersInvalidException.class)
     public ResponseEntity<Map<String, String>> handlePaginationParametersInvalidException(
             PaginationParametersInvalidException paginationParametersInvalidException) {
@@ -52,5 +39,15 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(MESSAGE, paginationParametersInvalidException.getMessage()));
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach(error -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
 
 }
