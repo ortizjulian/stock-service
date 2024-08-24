@@ -21,8 +21,8 @@ public class PageDtoMapper {
         pageCustom.setContent(categories);
         pageCustom.setTotalElements(page.getTotalElements());
         pageCustom.setTotalPages(page.getTotalPages());
-        pageCustom.setHasNext(page.isHasNext());
-        pageCustom.setHasPrevious(page.isHasPrevious());
+        pageCustom.setHasNext(page.getHasNext());
+        pageCustom.setHasPrevious(page.getHasPrevious());
         return pageCustom;
     }
 }

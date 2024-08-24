@@ -24,8 +24,8 @@ public class CategoryRestController {
     })
     @GetMapping
     public ResponseEntity<PageCustom<CategoryDto>> getAllCategories(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size,
             @RequestParam(defaultValue = "ASC") String sortDirection,
             @RequestParam(defaultValue= "name") String sortBy
     ){

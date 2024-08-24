@@ -35,7 +35,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
     @Override
-    public PageCustom<Category> getAllCategories(int page, int size, String sortDirection, String sortBy) {
+    public PageCustom<Category> getAllCategories(Integer page, Integer size, String sortDirection, String sortBy) {
         PaginationValidator.validatePagination(page,size,sortDirection,sortBy);
         return this.categoryPersistencePort.getAllCategories(page,size,sortDirection,sortBy);
     }

@@ -8,7 +8,7 @@ public class PaginationValidator {
     private static final String SORT_DIRECTION_DESC = "DESC";
     private static final String[] ALLOWED_SORT_BY = {"name", "description"};
 
-    public static void validatePagination(int page, int size, String sortDirection, String sortBy) {
+    public static void validatePagination(Integer page, Integer size, String sortDirection, String sortBy) {
         if (page < 0) {
             throw new PaginationParametersInvalidException("Page number cannot be negative.");
         }
