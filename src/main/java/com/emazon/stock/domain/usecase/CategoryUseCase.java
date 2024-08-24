@@ -1,6 +1,8 @@
 package com.emazon.stock.domain.usecase;
 
 import com.emazon.stock.domain.api.ICategoryServicePort;
+import com.emazon.stock.domain.exception.CategoryAlreadyExistsException;
+import com.emazon.stock.domain.exception.CategoryNotFoundException;
 import com.emazon.stock.domain.exception.DataConstraintViolationException;
 import com.emazon.stock.domain.exception.MissingAttributeException;
 import com.emazon.stock.domain.model.Category;
@@ -30,6 +32,9 @@ public class CategoryUseCase implements ICategoryServicePort {
         if(category.getDescription().length() > 90) {
             throw new DataConstraintViolationException("Category description exceeds the maximum length of 90 characters");
         }
+        if(categoryPersistencePort.findByName(category.getName())){
+            throw new CategoryAlreadyExistsException();
+        }
 
         this.categoryPersistencePort.saveCategory(category);
     }
@@ -42,11 +47,17 @@ public class CategoryUseCase implements ICategoryServicePort {
 
     @Override
     public void updateCategory(Category category) {
+        if(!categoryPersistencePort.findByName(category.getName())){
+            throw new CategoryNotFoundException("Category not found with name: " + category.getName());
+        }
         this.categoryPersistencePort.updateCategory(category);
     }
 
     @Override
     public void deleteCategory(String categoryName) {
+        if(!categoryPersistencePort.findByName(categoryName)){
+            throw new CategoryNotFoundException("Category not found with name: " + categoryName);
+        }
         this.categoryPersistencePort.deleteCategory(categoryName);
     }
 }

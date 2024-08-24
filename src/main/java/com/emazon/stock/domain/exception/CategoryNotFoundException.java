@@ -1,4 +1,4 @@
-package com.emazon.stock.infrastucture.exception;
+package com.emazon.stock.domain.exception;
 
 public class CategoryNotFoundException extends  RuntimeException {
     public CategoryNotFoundException(String message) {
