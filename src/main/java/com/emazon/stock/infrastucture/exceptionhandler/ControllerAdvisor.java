@@ -1,4 +1,5 @@
 package com.emazon.stock.infrastucture.exceptionhandler;
+import com.emazon.stock.domain.exception.InvalidPathVariableException;
 import com.emazon.stock.domain.exception.PaginationParametersInvalidException;
 import com.emazon.stock.domain.exception.CategoryAlreadyExistsException;
 import com.emazon.stock.domain.exception.CategoryNotFoundException;
@@ -41,14 +42,13 @@ public class ControllerAdvisor {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException methodArgumentNotValidException) {
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach(error -> {
+        methodArgumentNotValidException.getBindingResult().getAllErrors().forEach(error -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-
 }

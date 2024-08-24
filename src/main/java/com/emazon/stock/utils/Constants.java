@@ -2,10 +2,10 @@ package com.emazon.stock.utils;
 
 public class Constants {
 
-    public static final Integer MIN_CHARACTERS_NAME_CATEGORY = 1;
-    public static final Integer MAX_CHARACTERS_NAME_CATEGORY = 50;
-    public static final Integer MIN_CHARACTERS_DESCRIPTION_CATEGORY = 1;
-    public static final Integer MAX_CHARACTERS_DESCRIPTION_CATEGORY = 90;
+    public static final int MIN_CHARACTERS_NAME_CATEGORY = 1;
+    public static final int MAX_CHARACTERS_NAME_CATEGORY = 50;
+    public static final int MIN_CHARACTERS_DESCRIPTION_CATEGORY = 1;
+    public static final int MAX_CHARACTERS_DESCRIPTION_CATEGORY = 90;
 
     // Pagination defaults
     public static final String DEFAULT_PAGE = "0";
