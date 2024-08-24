@@ -106,7 +106,7 @@ class CategoryUseCaseTest {
 
         PageCustom<Category> mockPage = new PageCustom<>();
         mockPage.setContent(categories);
-        mockPage.setTotalElements(3);
+        mockPage.setTotalElements(3L);
         mockPage.setTotalPages(1);
 
         Mockito.when(categoryPersistencePort.getAllCategories(page, size, sortDirection, sortBy))

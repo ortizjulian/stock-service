@@ -5,15 +5,19 @@ import java.util.List;
 public class PageCustom<T>{
 
     private List<T> content;
-    private long totalElements;
+    private Long totalElements;
     private int totalPages;
+    private boolean hasNext;
+    private boolean hasPrevious;
 
     public PageCustom(){}
 
-    public PageCustom(List<T> content, long totalElements, int totalPages) {
+    public PageCustom(List<T> content, Long totalElements, int totalPages, boolean hasNext, boolean hasPrevious) {
         this.content = content;
         this.totalElements = totalElements;
         this.totalPages = totalPages;
+        this.hasNext = hasNext;
+        this.hasPrevious = hasPrevious;
     }
 
     public List<T> getContent() {
@@ -24,11 +28,11 @@ public class PageCustom<T>{
         this.content = content;
     }
 
-    public long getTotalElements() {
+    public Long getTotalElements() {
         return totalElements;
     }
 
-    public void setTotalElements(long totalElements) {
+    public void setTotalElements(Long totalElements) {
         this.totalElements = totalElements;
     }
 
@@ -40,4 +44,19 @@ public class PageCustom<T>{
         this.totalPages = totalPages;
     }
 
+    public boolean isHasNext() {
+        return hasNext;
+    }
+
+    public void setHasNext(boolean hasNext) {
+        this.hasNext = hasNext;
+    }
+
+    public boolean isHasPrevious() {
+        return hasPrevious;
+    }
+
+    public void setHasPrevious(boolean hasPrevious) {
+        this.hasPrevious = hasPrevious;
+    }
 }

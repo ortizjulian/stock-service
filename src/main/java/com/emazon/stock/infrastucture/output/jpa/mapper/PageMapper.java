@@ -22,7 +22,8 @@ public class PageMapper {
         pageCustom.setContent(categories);
         pageCustom.setTotalElements(page.getTotalElements());
         pageCustom.setTotalPages(page.getTotalPages());
-
+        pageCustom.setHasNext(page.hasNext());
+        pageCustom.setHasPrevious(page.hasPrevious());
         return pageCustom;
     }
 }
