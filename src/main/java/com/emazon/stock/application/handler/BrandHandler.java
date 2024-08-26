@@ -2,12 +2,12 @@ package com.emazon.stock.application.handler;
 
 import com.emazon.stock.application.dto.BrandDto;
 import com.emazon.stock.application.mapper.BrandDtoMapper;
+import com.emazon.stock.application.mapper.PageDtoMapper;
 import com.emazon.stock.domain.api.IBrandServicePort;
 import com.emazon.stock.domain.model.Brand;
+import com.emazon.stock.domain.model.PageCustom;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -15,10 +15,12 @@ public class BrandHandler implements IBrandHandler{
 
     private final IBrandServicePort brandServicePort;
     private final BrandDtoMapper brandDtoMapper;
+    private final PageDtoMapper pageDtoMapper;
 
-    public BrandHandler(IBrandServicePort brandServicePort, BrandDtoMapper brandDtoMapper) {
+    public BrandHandler(IBrandServicePort brandServicePort, BrandDtoMapper brandDtoMapper, PageDtoMapper pageDtoMapper) {
         this.brandServicePort = brandServicePort;
         this.brandDtoMapper = brandDtoMapper;
+        this.pageDtoMapper = pageDtoMapper;
     }
 
     @Override
@@ -28,8 +30,8 @@ public class BrandHandler implements IBrandHandler{
     }
 
     @Override
-    public List<BrandDto> getAllBrands() {
-        return brandDtoMapper.toDtoList(brandServicePort.getAllBrands());
+    public PageCustom<BrandDto> getAllBrands(Integer page, Integer size, String sortDirection, String sortBy) {
+        return pageDtoMapper.toBrandDtoPageCustom(brandServicePort.getAllBrands(page,size,sortDirection,sortBy));
     }
 
     @Override

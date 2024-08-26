@@ -1,12 +1,11 @@
 package com.emazon.stock.domain.api;
 
 import com.emazon.stock.domain.model.Brand;
-
-import java.util.List;
+import com.emazon.stock.domain.model.PageCustom;
 
 public interface IBrandServicePort {
     void saveBrand(Brand brand);
-    List<Brand> getAllBrands();
+    PageCustom<Brand> getAllBrands(Integer page, Integer size, String sortDirection, String sortBy);
     void updateBrand(Brand brand);
     void deleteBrand(String brandName);
 }

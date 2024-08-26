@@ -4,10 +4,10 @@ import com.emazon.stock.domain.api.IBrandServicePort;
 import com.emazon.stock.domain.exception.BrandAlreadyExistsException;
 import com.emazon.stock.domain.exception.BrandNotFoundException;
 import com.emazon.stock.domain.model.Brand;
+import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.domain.spi.IBrandPersistencePort;
+import com.emazon.stock.domain.utils.PaginationValidator;
 import com.emazon.stock.utils.Constants;
-
-import java.util.List;
 
 public class BrandUseCase implements IBrandServicePort {
 
@@ -26,8 +26,9 @@ public class BrandUseCase implements IBrandServicePort {
     }
 
     @Override
-    public List<Brand> getAllBrands() {
-        return this.brandPersistencePort.getAllBrands();
+    public PageCustom<Brand> getAllBrands(Integer page, Integer size, String sortDirection, String sortBy) {
+        PaginationValidator.validatePagination(page,size,sortDirection);
+        return this.brandPersistencePort.getAllBrands(page,size,sortDirection,sortBy);
     }
 
     @Override
