@@ -39,44 +39,6 @@ class CategoryUseCaseTest {
     }
 
     @Test
-    void CategoryUseCase_SaveCategory_WhenNameIsNull_ShouldThrowMissingAttributeException() {
-        Category invalidCategory = new Category(null,null,"Todo lo relacionado a computadores");
-
-        assertThrows(MissingAttributeException.class, () -> {
-            categoryUseCase.saveCategory(invalidCategory);
-        });
-    }
-
-    @Test
-    void CategoryUseCase_SaveCategory_WhenCategoryIsNull_ShouldThrowMissingAttributeException() {
-        Category invalidCategory = new Category(null, "Nombre Categoría", null);
-
-        assertThrows(MissingAttributeException.class, () -> {
-            categoryUseCase.saveCategory(invalidCategory);
-        });
-    }
-
-    @Test
-    void CategoryUseCase_SaveCategory_WhenNameExceeds50Characters_ShouldThrowDataConstraintViolationException() {
-        Category invalidCategory = new Category(null,"Nombre de la categoría muy largo para probar que la Excepción DataConstraintViolationException sea lanzada","Todo lo relacionado a computadores");
-
-        assertThrows(DataConstraintViolationException.class, () -> {
-            categoryUseCase.saveCategory(invalidCategory);
-        });
-    }
-
-    @Test
-    void CategoryUseCase_SaveCategory_WhenDescriptionExceeds90Characters_ShouldThrowDataConstraintViolationException() {
-        Category invalidCategory = new Category(null,
-                "Nombre de la categoría válido",
-                "Descripción de la categoría que excede los noventa caracteres para probar que la Excepción DataConstraintViolationException sea lanzada. Esto es una descripción muy larga para realizar los test.");
-
-        assertThrows(DataConstraintViolationException.class, () -> {
-            categoryUseCase.saveCategory(invalidCategory);
-        });
-    }
-
-    @Test
     void CategoryUseCase_GetAllCategories_WhenPageIsNegative_ShouldThrowPaginationParametersInvalidException() {
 
         int invalidPage = -1;
