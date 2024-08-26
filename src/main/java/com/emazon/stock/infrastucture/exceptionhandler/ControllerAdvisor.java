@@ -1,7 +1,5 @@
 package com.emazon.stock.infrastucture.exceptionhandler;
-import com.emazon.stock.domain.exception.PaginationParametersInvalidException;
-import com.emazon.stock.domain.exception.CategoryAlreadyExistsException;
-import com.emazon.stock.domain.exception.CategoryNotFoundException;
+import com.emazon.stock.domain.exception.*;
 import com.emazon.stock.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +17,8 @@ public class ControllerAdvisor {
 
     private static final String MESSAGE = Constants.RESPONSE_MESSAGE_KEY;
 
+    //CategoryExceptions
+
     @ExceptionHandler(CategoryAlreadyExistsException.class)
     public ResponseEntity<Map<String, String>> handleCategoryAlreadyExistsException(
             CategoryAlreadyExistsException categoryAlreadyExistsException) {
@@ -32,6 +32,23 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(MESSAGE, categoryNotFoundException.getMessage()));
     }
+
+    //BrandExceptions
+
+    @ExceptionHandler(BrandAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> handleBrandAlreadyExistsException(
+            BrandAlreadyExistsException categoryBrandExistsException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.BRAND_ALREADY_EXISTS.getMessage()));
+    }
+
+    @ExceptionHandler(BrandNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleBrandNotFoundException(
+            BrandNotFoundException brandNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(MESSAGE, brandNotFoundException.getMessage()));
+    }
+
 
     @ExceptionHandler(PaginationParametersInvalidException.class)
     public ResponseEntity<Map<String, String>> handlePaginationParametersInvalidException(
