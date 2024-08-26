@@ -1,7 +1,7 @@
 package com.emazon.stock.infrastucture.configuration;
 
 import com.emazon.stock.application.mapper.BrandDtoMapper;
-import com.emazon.stock.application.mapper.CategoryDtoMapper;
+import com.emazon.stock.application.mapper.CategoryDtoResponseMapper;
 import com.emazon.stock.application.mapper.PageDtoMapper;
 import com.emazon.stock.domain.api.IBrandServicePort;
 import com.emazon.stock.domain.api.ICategoryServicePort;
@@ -26,7 +26,7 @@ public class BeanConfiguration {
 
     private final ICategoryRepository categoryRepository;
     private final CategoryEntityMapper categoryEntityMapper;
-    private final CategoryDtoMapper categoryDtoMapper;
+    private final CategoryDtoResponseMapper categoryDtoResponseMapper;
 
     private final IBrandRepository brandRepository;
     private final BrandEntityMapper brandEntityMapper;
@@ -49,7 +49,7 @@ public class BeanConfiguration {
 
     @Bean
     public PageDtoMapper pageDtoMapper() {
-        return new PageDtoMapper(categoryDtoMapper, brandDtoMapper);
+        return new PageDtoMapper(categoryDtoResponseMapper, brandDtoMapper);
     }
 
     @Bean

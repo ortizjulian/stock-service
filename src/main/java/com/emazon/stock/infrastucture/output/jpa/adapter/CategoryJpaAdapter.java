@@ -40,6 +40,11 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
     }
 
     @Override
+    public Boolean findById(Long categoryId) {
+        return categoryRepository.findById(categoryId).isPresent();
+    }
+
+    @Override
     public PageCustom<Category> getAllCategories(Integer page, Integer size, String sortDirection, String sortBy) {
         Sort.Direction direction = Sort.Direction.fromString(sortDirection);
         Sort sort = Sort.by(direction, sortBy);
@@ -50,18 +55,19 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
 
 
     @Override
-    public void updateCategory(Category category) {
-        Optional<CategoryEntity> optionalCategoryEntity = categoryRepository.findByName(category.getName());
+    public void updateCategory(Long categoryId,Category category) {
+        Optional<CategoryEntity> optionalCategoryEntity = categoryRepository.findById(categoryId);
 
         if (optionalCategoryEntity.isPresent()) {
             CategoryEntity categoryEntity = optionalCategoryEntity.get();
+            categoryEntity.setName(category.getName());
             categoryEntity.setDescription(category.getDescription());
             categoryRepository.save(categoryEntity);
         }
     }
 
     @Override
-    public void deleteCategory(String categoryName) {
-        categoryRepository.deleteByName(categoryName);
+    public void deleteCategory(Long categoryId) {
+        categoryRepository.deleteById(categoryId);
     }
 }

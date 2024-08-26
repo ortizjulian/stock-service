@@ -12,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import com.emazon.stock.application.dto.CategoryDto;
 import com.emazon.stock.application.handler.ICategoryHandler;
 
 @WebMvcTest(controllers = CategoryRestController.class)

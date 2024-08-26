@@ -34,18 +34,18 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
     @Override
-    public void updateCategory(Category category) {
-        if(!categoryPersistencePort.findByName(category.getName())){
-            throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND + category.getName());
+    public void updateCategory(Long categoryId,Category category) {
+        if(!categoryPersistencePort.findById(categoryId)){
+            throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND + categoryId);
         }
-        this.categoryPersistencePort.updateCategory(category);
+        this.categoryPersistencePort.updateCategory(categoryId,category);
     }
 
     @Override
-    public void deleteCategory(String categoryName) {
-        if(!categoryPersistencePort.findByName(categoryName)){
-            throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND + categoryName);
+    public void deleteCategory(Long categoryId) {
+        if(!categoryPersistencePort.findById(categoryId)){
+            throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND + categoryId);
         }
-        this.categoryPersistencePort.deleteCategory(categoryName);
+        this.categoryPersistencePort.deleteCategory(categoryId);
     }
 }

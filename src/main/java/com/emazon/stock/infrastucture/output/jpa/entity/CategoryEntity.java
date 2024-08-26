@@ -4,6 +4,8 @@ import com.emazon.stock.utils.Constants;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "category")
 @NoArgsConstructor
@@ -22,4 +24,6 @@ public class CategoryEntity {
     @Column(length = Constants.MAX_CHARACTERS_DESCRIPTION_CATEGORY)
     private String description;
 
+    @ManyToMany(mappedBy = "articleCategories")
+    Set<ArticleEntity> likes;
 }
