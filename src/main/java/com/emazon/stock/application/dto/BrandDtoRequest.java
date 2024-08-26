@@ -4,8 +4,7 @@ import com.emazon.stock.utils.Constants;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class BrandDto {
-
+public class BrandDtoRequest {
     @NotBlank(message = Constants.EXCEPTION_BRAND_NAME_NULL)
     @Size(min = Constants.MIN_CHARACTERS_NAME_BRAND, max = Constants.MAX_CHARACTERS_NAME_BRAND, message = Constants.EXCEPTION_BRAND_NAME_SIZE)
     private String name;
@@ -14,7 +13,7 @@ public class BrandDto {
     @Size(min = Constants.MIN_CHARACTERS_DESCRIPTION_BRAND, max = Constants.MAX_CHARACTERS_DESCRIPTION_BRAND, message = Constants.EXCEPTION_BRAND_DESCRIPTION_SIZE)
     private String description;
 
-    public BrandDto(String name, String description) {
+    public BrandDtoRequest(String name, String description) {
 
         this.name = name;
         this.description = description;
@@ -35,5 +34,4 @@ public class BrandDto {
     public void setDescription(String description) {
         this.description = description;
     }
-
 }

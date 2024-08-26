@@ -1,7 +1,6 @@
 package com.emazon.stock.infrastucture.input.rest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-import com.emazon.stock.application.dto.BrandDto;
 import com.emazon.stock.application.handler.IBrandHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

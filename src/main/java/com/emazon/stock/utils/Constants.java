@@ -40,7 +40,7 @@ public class Constants {
     public static final String EXCEPTION_BRAND_DESCRIPTION_NULL = "The brand description cannot be null";
     public static final String EXCEPTION_BRAND_DESCRIPTION_SIZE = "The brand description must be between 1 and 120 characters";
     public static final String EXCEPTION_BRAND_ALREADY_EXISTS = "There is already a brand with that name";
-    public static final String EXCEPTION_BRAND_NOT_FOUND = "Brand not found with name: ";
+    public static final String EXCEPTION_BRAND_NOT_FOUND = "Brand not found with ID: ";
     //ArticleExceptions
     public static final String EXCEPTION_ARTICLE_NAME_BLANK = "The article name cannot be blank";
     public static final String EXCEPTION_ARTICLE_DESCRIPTION_BLANK = "The article name cannot be blank";

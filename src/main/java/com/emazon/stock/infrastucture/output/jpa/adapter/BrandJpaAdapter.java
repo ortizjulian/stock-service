@@ -37,6 +37,11 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
         return brandRepository.findByName(brandName).isPresent();
     }
 
+    @Override
+    public Boolean findById(Long brandId) {
+        return brandRepository.findById(brandId).isPresent();
+    }
+
     public PageCustom<Brand> getAllBrands(Integer page, Integer size, String sortDirection, String sortBy) {
         Sort.Direction direction = Sort.Direction.fromString(sortDirection);
         Sort sort = Sort.by(direction, sortBy);
@@ -46,18 +51,19 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
     }
 
     @Override
-    public void updateBrand(Brand brand) {
-        Optional<BrandEntity> optionalBrandEntity = brandRepository.findByName(brand.getName());
+    public void updateBrand(Long brandId,Brand brand) {
+        Optional<BrandEntity> optionalBrandEntity = brandRepository.findById(brandId);
 
         if(optionalBrandEntity.isPresent()){
             BrandEntity brandEntity = optionalBrandEntity.get();
+            brandEntity.setName(brand.getName());
             brandEntity.setDescription(brand.getDescription());
             brandRepository.save(brandEntity);
         }
     }
 
     @Override
-    public void deleteBrand(String brandName) {
-        brandRepository.deleteByName(brandName);
+    public void deleteBrand(Long brandId) {
+        brandRepository.deleteById(brandId);
     }
 }

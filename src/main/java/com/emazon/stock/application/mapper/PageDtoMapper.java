@@ -1,6 +1,6 @@
 package com.emazon.stock.application.mapper;
 
-import com.emazon.stock.application.dto.BrandDto;
+import com.emazon.stock.application.dto.BrandDtoResponse;
 import com.emazon.stock.application.dto.CategoryDtoResponse;
 import com.emazon.stock.domain.model.Brand;
 import com.emazon.stock.domain.model.Category;
@@ -13,7 +13,7 @@ import java.util.List;
 public class PageDtoMapper {
 
     private final CategoryDtoResponseMapper categoryDtoResponseMapper;
-    private final BrandDtoMapper brandDtoMapper;
+    private final BrandDtoResponseMapper brandDtoResponseMapper;
 
     public PageCustom<CategoryDtoResponse> toCategoryDtoPageCustom(PageCustom<Category> page) {
         PageCustom<CategoryDtoResponse> pageCustom = new PageCustom<>();
@@ -29,10 +29,10 @@ public class PageDtoMapper {
         return pageCustom;
     }
 
-    public PageCustom<BrandDto> toBrandDtoPageCustom(PageCustom<Brand> page) {
-        PageCustom<BrandDto> pageCustom = new PageCustom<>();
-        List<BrandDto> brands = page.getContent().stream()
-                .map(brandDtoMapper::toBrandDto)
+    public PageCustom<BrandDtoResponse> toBrandDtoPageCustom(PageCustom<Brand> page) {
+        PageCustom<BrandDtoResponse> pageCustom = new PageCustom<>();
+        List<BrandDtoResponse> brands = page.getContent().stream()
+                .map(brandDtoResponseMapper::toBrandDtoResponse)
                 .toList();
 
         pageCustom.setContent(brands);

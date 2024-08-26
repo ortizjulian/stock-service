@@ -32,18 +32,18 @@ public class BrandUseCase implements IBrandServicePort {
     }
 
     @Override
-    public void updateBrand(Brand brand) {
-        if(!this.brandPersistencePort.findByName(brand.getName())){
-            throw new BrandNotFoundException(Constants.EXCEPTION_BRAND_NOT_FOUND + brand.getName());
+    public void updateBrand(Long brandId,Brand brand) {
+        if(!this.brandPersistencePort.findById(brandId)){
+            throw new BrandNotFoundException(Constants.EXCEPTION_BRAND_NOT_FOUND +brandId);
         }
-        this.brandPersistencePort.updateBrand(brand);
+        this.brandPersistencePort.updateBrand(brandId,brand);
     }
 
     @Override
-    public void deleteBrand(String brandName) {
-        if(!this.brandPersistencePort.findByName(brandName)){
-            throw new BrandNotFoundException(Constants.EXCEPTION_BRAND_NOT_FOUND + brandName);
+    public void deleteBrand(Long brandId) {
+        if(!this.brandPersistencePort.findById(brandId)){
+            throw new BrandNotFoundException(Constants.EXCEPTION_BRAND_NOT_FOUND + brandId);
         }
-        this.brandPersistencePort.deleteBrand(brandName);
+        this.brandPersistencePort.deleteBrand(brandId);
     }
 }
