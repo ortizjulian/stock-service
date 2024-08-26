@@ -1,22 +1,28 @@
 package com.emazon.stock.infrastucture.output.jpa.adapter;
 
 import com.emazon.stock.domain.model.Brand;
+import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.domain.spi.IBrandPersistencePort;
 import com.emazon.stock.infrastucture.output.jpa.entity.BrandEntity;
 import com.emazon.stock.infrastucture.output.jpa.mapper.BrandEntityMapper;
+import com.emazon.stock.infrastucture.output.jpa.mapper.PageMapper;
 import com.emazon.stock.infrastucture.output.jpa.repository.IBrandRepository;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import java.util.Optional;
 
 public class BrandJpaAdapter implements IBrandPersistencePort {
 
     private final IBrandRepository brandRepository;
     private final BrandEntityMapper brandEntityMapper;
+    private final PageMapper pageMapper;
 
-    public BrandJpaAdapter(IBrandRepository brandRepository, BrandEntityMapper brandEntityMapper) {
+    public BrandJpaAdapter(IBrandRepository brandRepository, BrandEntityMapper brandEntityMapper, PageMapper pageMapper) {
         this.brandRepository = brandRepository;
         this.brandEntityMapper = brandEntityMapper;
+        this.pageMapper = pageMapper;
     }
 
     @Override
@@ -31,10 +37,12 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
         return brandRepository.findByName(brandName).isPresent();
     }
 
-    @Override
-    public List<Brand> getAllBrands() {
-        List<BrandEntity> brandEntityList = brandRepository.findAll();
-        return brandEntityMapper.toBrandList(brandEntityList);
+    public PageCustom<Brand> getAllBrands(Integer page, Integer size, String sortDirection, String sortBy) {
+        Sort.Direction direction = Sort.Direction.fromString(sortDirection);
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<BrandEntity> brandPage = brandRepository.findAll(pageable);
+        return pageMapper.toBrandPageCustom(brandPage);
     }
 
     @Override
