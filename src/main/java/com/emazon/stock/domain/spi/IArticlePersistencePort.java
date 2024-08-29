@@ -7,6 +7,6 @@ public interface IArticlePersistencePort {
     void saveArticle(Article article);
     Boolean findByName(String articleName);
     List<Article> getAllArticles();
-    void updateArticle(Article article);
-    void deleteArticle(String articleName);
+    void updateArticle(Long articleId,Article article);
+    void deleteArticle(Long articleId);
 }

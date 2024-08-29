@@ -7,6 +7,7 @@ import com.emazon.stock.infrastucture.output.jpa.entity.CategoryEntity;
 import com.emazon.stock.infrastucture.output.jpa.mapper.CategoryEntityMapper;
 import com.emazon.stock.infrastucture.output.jpa.mapper.PageMapper;
 import com.emazon.stock.infrastucture.output.jpa.repository.ICategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,17 +15,12 @@ import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
 
+@RequiredArgsConstructor
 public class CategoryJpaAdapter implements ICategoryPersistencePort {
 
     private final ICategoryRepository categoryRepository;
     private final CategoryEntityMapper categoryEntityMapper;
     private final PageMapper pageMapper;
-
-    public CategoryJpaAdapter(ICategoryRepository categoryRepository, CategoryEntityMapper categoryEntityMapper, PageMapper pageMapper) {
-        this.categoryRepository = categoryRepository;
-        this.categoryEntityMapper = categoryEntityMapper;
-        this.pageMapper = pageMapper;
-    }
 
     @Override
     public void saveCategory(Category category) {

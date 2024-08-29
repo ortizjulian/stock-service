@@ -15,7 +15,7 @@ public class Constants {
     public static final int MIN_ARTICLE_QUANTITY = 0;
     public static final String MIN_ARTICLE_PRICE = "0.0";
     public static final int MIN_ARTICLE_CATEGORIES = 1;
-    public static final int MAX_ARTICLE_CATEGORIES = 1;
+    public static final int MAX_ARTICLE_CATEGORIES = 3;
 
     // Pagination defaults
     public static final String DEFAULT_PAGE = "0";

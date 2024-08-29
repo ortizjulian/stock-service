@@ -32,11 +32,11 @@ public class ArticleEntity {
     @Column(nullable = false)
     private Float price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id", nullable = false)
     private BrandEntity brandEntity;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "article_category",
             joinColumns = @JoinColumn(name = "article_id"),

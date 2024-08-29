@@ -7,23 +7,19 @@ import com.emazon.stock.infrastucture.output.jpa.entity.BrandEntity;
 import com.emazon.stock.infrastucture.output.jpa.mapper.BrandEntityMapper;
 import com.emazon.stock.infrastucture.output.jpa.mapper.PageMapper;
 import com.emazon.stock.infrastucture.output.jpa.repository.IBrandRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 public class BrandJpaAdapter implements IBrandPersistencePort {
 
     private final IBrandRepository brandRepository;
     private final BrandEntityMapper brandEntityMapper;
     private final PageMapper pageMapper;
-
-    public BrandJpaAdapter(IBrandRepository brandRepository, BrandEntityMapper brandEntityMapper, PageMapper pageMapper) {
-        this.brandRepository = brandRepository;
-        this.brandEntityMapper = brandEntityMapper;
-        this.pageMapper = pageMapper;
-    }
 
     @Override
     public void saveBrand(Brand brand) {

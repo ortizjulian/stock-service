@@ -7,22 +7,18 @@ import com.emazon.stock.application.mapper.PageDtoMapper;
 import com.emazon.stock.domain.api.ICategoryServicePort;
 import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.domain.model.PageCustom;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CategoryHandler implements ICategoryHandler{
 
     private final ICategoryServicePort categoryServicePort;
     private final PageDtoMapper pageDtoMapper;
     private final CategoryDtoRequestMapper categoryDtoRequestMapper;
-
-    public CategoryHandler(ICategoryServicePort categoryServicePort, CategoryDtoRequestMapper categoryDtoRequestMapper, PageDtoMapper pageDtoMapper) {
-        this.categoryServicePort = categoryServicePort;
-        this.categoryDtoRequestMapper = categoryDtoRequestMapper;
-        this.pageDtoMapper = pageDtoMapper;
-    }
 
     @Override
     public void saveCategory(CategoryDtoRequest categoryDtoRequest) {

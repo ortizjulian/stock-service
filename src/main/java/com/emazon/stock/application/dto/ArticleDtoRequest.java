@@ -1,7 +1,5 @@
 package com.emazon.stock.application.dto;
 
-import com.emazon.stock.domain.model.Brand;
-import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.utils.Constants;
 import jakarta.validation.constraints.*;
 
@@ -22,19 +20,19 @@ public class ArticleDtoRequest {
     private Float price;
 
     @NotNull(message = Constants.EXCEPTION_ARTICLE_BRAND_NULL)
-    private Brand brand;
+    private Long brandId;
 
     @NotNull(message = Constants.EXCEPTION_ARTICLE_CATEGORIES_NULL)
-    @Size(min = Constants.MIN_ARTICLE_CATEGORIES,max =  Constants.MAX_ARTICLE_CATEGORIES, message = Constants.EXCEPTION_ARTICLE_CATEGORIES_SIZE)
-    private Set<Category> categories;
+    @Size(min = Constants.MIN_ARTICLE_CATEGORIES, max = Constants.MAX_ARTICLE_CATEGORIES, message = Constants.EXCEPTION_ARTICLE_CATEGORIES_SIZE)
+    private Set<Long> categoryIds;
 
-    public ArticleDtoRequest(String name, String description, Integer quantity, Float price, Brand brand, Set<Category> categories) {
+    public ArticleDtoRequest(String name, String description, Integer quantity, Float price, Long brandId, Set<Long> categoryIds) {
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
-        this.brand = brand;
-        this.categories = categories;
+        this.brandId = brandId;
+        this.categoryIds = categoryIds;
     }
 
     public String getName() {
@@ -69,21 +67,20 @@ public class ArticleDtoRequest {
         this.price = price;
     }
 
-    public Brand getBrand() {
-        return brand;
+    public  Long getBrandId() {
+        return brandId;
     }
 
-    public void setBrand(Brand brand) {
-        this.brand = brand;
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
     }
 
-    public Set<Category> getCategories() {
-        return categories;
+    public Set<Long> getCategoryIds() {
+        return categoryIds;
     }
 
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
+    public void setCategoryIds(Set<Long> categoryIds) {
+        this.categoryIds = categoryIds;
     }
-
 }
 
