@@ -1,6 +1,6 @@
 package com.emazon.stock.domain.model;
 
-import java.util.Set;
+import java.util.List;
 
 public class Article {
 
@@ -10,11 +10,11 @@ public class Article {
     private Integer quantity;
     private Float price;
     private Brand brand;
-    private Set<Category> categories;
+    private List<Category> categories;
 
     public Article() {}
 
-    public Article(Long id, String name, String description, Integer quantity, Float price, Brand brand, Set<Category> categories) {
+    public Article(Long id, String name, String description, Integer quantity, Float price, Brand brand, List<Category> categories) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -72,11 +72,11 @@ public class Article {
         this.brand = brand;
     }
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 }

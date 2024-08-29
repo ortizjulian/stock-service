@@ -3,6 +3,7 @@ package com.emazon.stock.domain.usecase;
 import com.emazon.stock.domain.api.IArticleServicePort;
 import com.emazon.stock.domain.exception.BrandNotFoundException;
 import com.emazon.stock.domain.exception.CategoryNotFoundException;
+import com.emazon.stock.domain.exception.DuplicateCategoryException;
 import com.emazon.stock.domain.model.Article;
 import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.domain.spi.IArticlePersistencePort;
@@ -37,6 +38,14 @@ public class ArticleUseCase implements IArticleServicePort {
                 .map(Category::getId)
                 .filter(categoryId -> !categoryPersistencePort.existById(categoryId))
                 .collect(Collectors.toSet());
+
+        Set<Long> categoryIds = article.getCategories().stream()
+                .map(Category::getId)
+                .collect(Collectors.toSet());
+
+        if (categoryIds.size() != article.getCategories().size()) {
+            throw new DuplicateCategoryException();
+        }
 
         if (!invalidCategoryIds.isEmpty()) {
                     throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND + invalidCategoryIds);

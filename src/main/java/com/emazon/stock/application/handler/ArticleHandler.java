@@ -30,12 +30,12 @@ public class ArticleHandler implements IArticleHandler{
 
         Article article = articleDtoRequestMapper.articleDtoRequestToArticle(articleDtoRequest);
 
-        Set<Category> categories = articleDtoRequest.getCategoryIds().stream()
+        List<Category> categories = articleDtoRequest.getCategoryIds().stream()
                 .map(categoryId -> {
                     Category category = new Category();
                     category.setId(categoryId);
                     return category;
-                }).collect(Collectors.toSet());
+                }).toList();
 
         Brand brand = new Brand();
         brand.setId(articleDtoRequest.getBrandId());

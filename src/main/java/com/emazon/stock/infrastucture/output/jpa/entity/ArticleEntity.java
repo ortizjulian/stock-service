@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "article")
@@ -41,5 +41,5 @@ public class ArticleEntity {
             name = "article_category",
             joinColumns = @JoinColumn(name = "article_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    Set<CategoryEntity> articleCategories;
+    List<CategoryEntity> articleCategories;
 }

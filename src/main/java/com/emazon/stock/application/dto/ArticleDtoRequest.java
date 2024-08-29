@@ -3,7 +3,7 @@ package com.emazon.stock.application.dto;
 import com.emazon.stock.utils.Constants;
 import jakarta.validation.constraints.*;
 
-import java.util.Set;
+import java.util.List;
 
 public class ArticleDtoRequest {
 
@@ -24,9 +24,9 @@ public class ArticleDtoRequest {
 
     @NotNull(message = Constants.EXCEPTION_ARTICLE_CATEGORIES_NULL)
     @Size(min = Constants.MIN_ARTICLE_CATEGORIES, max = Constants.MAX_ARTICLE_CATEGORIES, message = Constants.EXCEPTION_ARTICLE_CATEGORIES_SIZE)
-    private Set<Long> categoryIds;
+    private List<Long> categoryIds;
 
-    public ArticleDtoRequest(String name, String description, Integer quantity, Float price, Long brandId, Set<Long> categoryIds) {
+    public ArticleDtoRequest(String name, String description, Integer quantity, Float price, Long brandId, List<Long> categoryIds) {
         this.name = name;
         this.description = description;
         this.quantity = quantity;
@@ -75,11 +75,11 @@ public class ArticleDtoRequest {
         this.brandId = brandId;
     }
 
-    public Set<Long> getCategoryIds() {
+    public List<Long> getCategoryIds() {
         return categoryIds;
     }
 
-    public void setCategoryIds(Set<Long> categoryIds) {
+    public void setCategoryIds(List<Long> categoryIds) {
         this.categoryIds = categoryIds;
     }
 }

@@ -1,6 +1,6 @@
 package com.emazon.stock.application.dto;
 
-import java.util.Set;
+import java.util.List;
 
 public class ArticleDtoResponse {
     private Long id;
@@ -9,12 +9,12 @@ public class ArticleDtoResponse {
     private Integer quantity;
     private Float price;
     private BrandDtoResponse brand;
-    private Set<CategoryDtoResponse> categories;
+    private List<CategoryDtoResponse> categories;
 
     public ArticleDtoResponse(){}
 
 
-    public ArticleDtoResponse(Long id, String name, String description, Integer quantity, Float price, BrandDtoResponse brand, Set<CategoryDtoResponse> categories) {
+    public ArticleDtoResponse(Long id, String name, String description, Integer quantity, Float price, BrandDtoResponse brand, List<CategoryDtoResponse> categories) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -72,11 +72,11 @@ public class ArticleDtoResponse {
         this.brand = brand;
     }
 
-    public Set<CategoryDtoResponse> getCategories() {
+    public List<CategoryDtoResponse> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<CategoryDtoResponse> categories) {
+    public void setCategories(List<CategoryDtoResponse> categories) {
         this.categories = categories;
     }
 }

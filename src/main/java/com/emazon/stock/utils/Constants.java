@@ -49,7 +49,7 @@ public class Constants {
     public static final String EXCEPTION_ARTICLE_BRAND_NULL = "The article brand cannot be null";
     public static final String EXCEPTION_ARTICLE_CATEGORIES_NULL = "The article categories cannot be null";
     public static final String EXCEPTION_ARTICLE_CATEGORIES_SIZE = "At least one and at most three categories must be assigned";
-
+    public static final String EXCEPTION_DUPLICATE_CATEGORIES = "Duplicate categories found in the article.";
     //Pagination Exceptions
     public static final String EXCEPTION_PAGE_NUMBER_NEGATIVE = "Page number cannot be negative.";
     public static final String EXCEPTION_PAGE_SIZE_NEGATIVE = "Page size cannot be negative.";

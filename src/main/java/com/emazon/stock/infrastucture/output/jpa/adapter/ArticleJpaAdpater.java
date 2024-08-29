@@ -29,10 +29,10 @@ public class ArticleJpaAdpater implements IArticlePersistencePort {
         ArticleEntity articleEntity = articleEntityMapper.toEntity(article);
         Optional<BrandEntity> optionalBrandEntity= brandRepository.findById(article.getBrand().getId());
 
-        Set<CategoryEntity> categoryEntities = article.getCategories().stream()
+        List<CategoryEntity> categoryEntities = article.getCategories().stream()
                 .map(category -> categoryRepository.findById(category.getId())
                         .orElseThrow(() -> new IllegalArgumentException("Category with ID " + category.getId() + " not found")))
-                .collect(Collectors.toSet());
+                .toList();
 
         if (optionalBrandEntity.isPresent()){
             articleEntity.setBrandEntity(optionalBrandEntity.get());
