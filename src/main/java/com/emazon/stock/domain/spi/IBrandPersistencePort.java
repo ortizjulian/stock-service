@@ -5,8 +5,8 @@ import com.emazon.stock.domain.model.PageCustom;
 
 public interface IBrandPersistencePort {
     void saveBrand(Brand brand);
-    Boolean findByName(String brandName);
-    Boolean findById(Long brandId);
+    Boolean existsByName(String brandName);
+    Boolean existById(Long brandId);
     PageCustom<Brand> getAllBrands(Integer page, Integer size, String sortDirection, String sortBy);
     void updateBrand(Long brandId,Brand brand);
     void deleteBrand(Long brandId);

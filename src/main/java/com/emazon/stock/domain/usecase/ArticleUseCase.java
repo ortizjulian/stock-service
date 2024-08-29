@@ -29,13 +29,13 @@ public class ArticleUseCase implements IArticleServicePort {
     @Override
     public void saveArticle(Article article) {
 
-        if (!brandPersistencePort.findById(article.getBrand().getId())) {
+        if (!brandPersistencePort.existById(article.getBrand().getId())) {
             throw new BrandNotFoundException(Constants.EXCEPTION_BRAND_NOT_FOUND +article.getBrand().getId());
         }
 
         Set<Long> invalidCategoryIds = article.getCategories().stream()
                 .map(Category::getId)
-                .filter(categoryId -> !categoryPersistencePort.findById(categoryId))
+                .filter(categoryId -> !categoryPersistencePort.existById(categoryId))
                 .collect(Collectors.toSet());
 
         if (!invalidCategoryIds.isEmpty()) {

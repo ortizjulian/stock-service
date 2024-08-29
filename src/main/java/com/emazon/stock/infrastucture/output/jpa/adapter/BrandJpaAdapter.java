@@ -29,12 +29,12 @@ public class BrandJpaAdapter implements IBrandPersistencePort {
     }
 
     @Override
-    public Boolean findByName(String brandName) {
+    public Boolean existsByName(String brandName) {
         return brandRepository.findByName(brandName).isPresent();
     }
 
     @Override
-    public Boolean findById(Long brandId) {
+    public Boolean existById(Long brandId) {
         return brandRepository.findById(brandId).isPresent();
     }
 

@@ -20,7 +20,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     @Override
     public void saveCategory(Category category) {
 
-        if(categoryPersistencePort.findByName(category.getName())){
+        if(categoryPersistencePort.existsByName(category.getName())){
             throw new CategoryAlreadyExistsException();
         }
 
@@ -35,7 +35,7 @@ public class CategoryUseCase implements ICategoryServicePort {
 
     @Override
     public void updateCategory(Long categoryId,Category category) {
-        if(!categoryPersistencePort.findById(categoryId)){
+        if(!categoryPersistencePort.existById(categoryId)){
             throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND + categoryId);
         }
         this.categoryPersistencePort.updateCategory(categoryId,category);
@@ -43,7 +43,7 @@ public class CategoryUseCase implements ICategoryServicePort {
 
     @Override
     public void deleteCategory(Long categoryId) {
-        if(!categoryPersistencePort.findById(categoryId)){
+        if(!categoryPersistencePort.existById(categoryId)){
             throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND + categoryId);
         }
         this.categoryPersistencePort.deleteCategory(categoryId);

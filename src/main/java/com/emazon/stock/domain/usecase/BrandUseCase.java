@@ -19,7 +19,7 @@ public class BrandUseCase implements IBrandServicePort {
 
     @Override
     public void saveBrand(Brand brand) {
-        if(brandPersistencePort.findByName(brand.getName())){
+        if(brandPersistencePort.existsByName(brand.getName())){
             throw new BrandAlreadyExistsException();
         }
         this.brandPersistencePort.saveBrand(brand);
@@ -33,7 +33,7 @@ public class BrandUseCase implements IBrandServicePort {
 
     @Override
     public void updateBrand(Long brandId,Brand brand) {
-        if(!this.brandPersistencePort.findById(brandId)){
+        if(!this.brandPersistencePort.existById(brandId)){
             throw new BrandNotFoundException(Constants.EXCEPTION_BRAND_NOT_FOUND +brandId);
         }
         this.brandPersistencePort.updateBrand(brandId,brand);
@@ -41,7 +41,7 @@ public class BrandUseCase implements IBrandServicePort {
 
     @Override
     public void deleteBrand(Long brandId) {
-        if(!this.brandPersistencePort.findById(brandId)){
+        if(!this.brandPersistencePort.existById(brandId)){
             throw new BrandNotFoundException(Constants.EXCEPTION_BRAND_NOT_FOUND + brandId);
         }
         this.brandPersistencePort.deleteBrand(brandId);

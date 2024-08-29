@@ -31,12 +31,12 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
     }
 
     @Override
-    public Boolean findByName(String categoryName) {
+    public Boolean existsByName(String categoryName) {
         return categoryRepository.findByName(categoryName).isPresent();
     }
 
     @Override
-    public Boolean findById(Long categoryId) {
+    public Boolean existById(Long categoryId) {
         return categoryRepository.findById(categoryId).isPresent();
     }
 
