@@ -1,8 +1,5 @@
 package com.emazon.stock.infrastucture.configuration;
 
-import com.emazon.stock.application.mapper.BrandDtoResponseMapper;
-import com.emazon.stock.application.mapper.CategoryDtoResponseMapper;
-import com.emazon.stock.application.mapper.PageDtoMapper;
 import com.emazon.stock.domain.api.IArticleServicePort;
 import com.emazon.stock.domain.api.IBrandServicePort;
 import com.emazon.stock.domain.api.ICategoryServicePort;
