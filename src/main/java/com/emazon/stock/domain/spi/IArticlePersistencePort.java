@@ -5,8 +5,5 @@ import java.util.List;
 
 public interface IArticlePersistencePort {
     void saveArticle(Article article);
-    Boolean findByName(String articleName);
     List<Article> getAllArticles();
-    void updateArticle(Long articleId,Article article);
-    void deleteArticle(Long articleId);
 }

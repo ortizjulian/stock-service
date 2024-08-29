@@ -42,23 +42,9 @@ public class ArticleJpaAdpater implements IArticlePersistencePort {
     }
 
     @Override
-    public Boolean findByName(String articleName) {
-         return articleRepository.findByName(articleName).isPresent();
-    }
-
-    @Override
     public List<Article> getAllArticles() {
         List<ArticleEntity> articleEntityList = articleRepository.findAll();
         return articleEntityMapper.toArticleList(articleEntityList);
     }
 
-    @Override
-    public void updateArticle(Long articleId, Article article) {
-
-    }
-
-    @Override
-    public void deleteArticle(Long articleId) {
-
-    }
 }

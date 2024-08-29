@@ -49,14 +49,4 @@ public class ArticleUseCase implements IArticleServicePort {
     public List<Article> getAllArticles() {
         return this.articlePersistencePort.getAllArticles();
     }
-
-    @Override
-    public void updateArticle(Long articleId, Article article) {
-        this.articlePersistencePort.updateArticle(articleId, article);
-    }
-
-    @Override
-    public void deleteArticle(Long articleId) {
-        this.articlePersistencePort.deleteArticle(articleId);
-    }
 }

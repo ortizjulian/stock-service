@@ -53,16 +53,4 @@ public class ArticleHandler implements IArticleHandler{
         return articleDtoResponseMapper.toArticleDtoResponseList(articleList);
     }
 
-    @Override
-    public void updateArticle(Long articleId, ArticleDtoRequest articleDtoRequest) {
-        Article article = articleDtoRequestMapper.articleDtoRequestToArticle(articleDtoRequest);
-
-        this.articleServicePort.updateArticle(articleId,article);
-    }
-
-    @Override
-    public void deleteArticle(Long articleId) {
-        this.articleServicePort.deleteArticle(articleId);
-
-    }
 }
