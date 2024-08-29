@@ -32,14 +32,14 @@ public class BeanConfiguration {
 
     private final ICategoryRepository categoryRepository;
     private final CategoryEntityMapper categoryEntityMapper;
-    private final CategoryDtoResponseMapper categoryDtoResponseMapper;
 
     private final IBrandRepository brandRepository;
     private final BrandEntityMapper brandEntityMapper;
-    private final BrandDtoResponseMapper brandDtoResponseMapper;
 
     private final IArticleRepository articleRepository;
     private final ArticleEntityMapper articleEntityMapper;
+
+    private final PageMapper pageMapper;
 
     @Bean
     public IArticlePersistencePort articlePersistencePort(){
@@ -51,14 +51,10 @@ public class BeanConfiguration {
         return new ArticleUseCase(articlePersistencePort(), brandPersistencePort(), categoryPersistencePort());
     }
 
-    @Bean
-    public PageMapper pageMapper() {
-        return new PageMapper(categoryEntityMapper, brandEntityMapper);
-    }
 
     @Bean
     public IBrandPersistencePort brandPersistencePort(){
-        return new BrandJpaAdapter(brandRepository,brandEntityMapper, pageMapper());
+        return new BrandJpaAdapter(brandRepository,brandEntityMapper, pageMapper);
     }
 
     @Bean
@@ -67,13 +63,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public PageDtoMapper pageDtoMapper() {
-        return new PageDtoMapper(categoryDtoResponseMapper, brandDtoResponseMapper);
-    }
-
-    @Bean
     public ICategoryPersistencePort categoryPersistencePort(){
-        return new CategoryJpaAdapter(categoryRepository, categoryEntityMapper, pageMapper());
+        return new CategoryJpaAdapter(categoryRepository, categoryEntityMapper, pageMapper);
     }
 
     @Bean

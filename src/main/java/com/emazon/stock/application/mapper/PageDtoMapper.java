@@ -5,20 +5,25 @@ import com.emazon.stock.application.dto.CategoryDtoResponse;
 import com.emazon.stock.domain.model.Brand;
 import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.domain.model.PageCustom;
-import lombok.AllArgsConstructor;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@AllArgsConstructor
-public class PageDtoMapper {
+@Mapper(componentModel = "spring",
+        unmappedSourcePolicy = ReportingPolicy.IGNORE,
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        uses = {CategoryDtoResponseMapper.class,BrandDtoResponseMapper.class })
+public interface  PageDtoMapper {
 
-    private final CategoryDtoResponseMapper categoryDtoResponseMapper;
-    private final BrandDtoResponseMapper brandDtoResponseMapper;
+     CategoryDtoResponseMapper CATEGORY_DTO_RESPONSE_MAPPER = Mappers.getMapper(CategoryDtoResponseMapper.class);
+     BrandDtoResponseMapper BRAND_DTO_RESPONSE_MAPPER = Mappers.getMapper(BrandDtoResponseMapper.class);
 
-    public PageCustom<CategoryDtoResponse> toCategoryDtoPageCustom(PageCustom<Category> page) {
+    default PageCustom<CategoryDtoResponse> toCategoryDtoPageCustom(PageCustom<Category> page) {
         PageCustom<CategoryDtoResponse> pageCustom = new PageCustom<>();
         List<CategoryDtoResponse> categories = page.getContent().stream()
-                .map(categoryDtoResponseMapper::toCategoryDtoResponse)
+                .map(CATEGORY_DTO_RESPONSE_MAPPER::toCategoryDtoResponse)
                 .toList();
 
         pageCustom.setContent(categories);
@@ -29,10 +34,10 @@ public class PageDtoMapper {
         return pageCustom;
     }
 
-    public PageCustom<BrandDtoResponse> toBrandDtoPageCustom(PageCustom<Brand> page) {
+    default PageCustom<BrandDtoResponse> toBrandDtoPageCustom(PageCustom<Brand> page) {
         PageCustom<BrandDtoResponse> pageCustom = new PageCustom<>();
         List<BrandDtoResponse> brands = page.getContent().stream()
-                .map(brandDtoResponseMapper::toBrandDtoResponse)
+                .map(BRAND_DTO_RESPONSE_MAPPER::toBrandDtoResponse)
                 .toList();
 
         pageCustom.setContent(brands);
