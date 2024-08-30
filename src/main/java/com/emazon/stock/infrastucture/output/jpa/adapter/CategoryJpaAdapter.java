@@ -7,6 +7,7 @@ import com.emazon.stock.infrastucture.output.jpa.entity.CategoryEntity;
 import com.emazon.stock.infrastucture.output.jpa.mapper.CategoryEntityMapper;
 import com.emazon.stock.infrastucture.output.jpa.mapper.PageMapper;
 import com.emazon.stock.infrastucture.output.jpa.repository.ICategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,17 +15,12 @@ import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
 
+@RequiredArgsConstructor
 public class CategoryJpaAdapter implements ICategoryPersistencePort {
 
     private final ICategoryRepository categoryRepository;
     private final CategoryEntityMapper categoryEntityMapper;
     private final PageMapper pageMapper;
-
-    public CategoryJpaAdapter(ICategoryRepository categoryRepository, CategoryEntityMapper categoryEntityMapper, PageMapper pageMapper) {
-        this.categoryRepository = categoryRepository;
-        this.categoryEntityMapper = categoryEntityMapper;
-        this.pageMapper = pageMapper;
-    }
 
     @Override
     public void saveCategory(Category category) {
@@ -35,8 +31,13 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
     }
 
     @Override
-    public Boolean findByName(String categoryName) {
+    public Boolean existsByName(String categoryName) {
         return categoryRepository.findByName(categoryName).isPresent();
+    }
+
+    @Override
+    public Boolean existById(Long categoryId) {
+        return categoryRepository.findById(categoryId).isPresent();
     }
 
     @Override
@@ -50,18 +51,19 @@ public class CategoryJpaAdapter implements ICategoryPersistencePort {
 
 
     @Override
-    public void updateCategory(Category category) {
-        Optional<CategoryEntity> optionalCategoryEntity = categoryRepository.findByName(category.getName());
+    public void updateCategory(Long categoryId,Category category) {
+        Optional<CategoryEntity> optionalCategoryEntity = categoryRepository.findById(categoryId);
 
         if (optionalCategoryEntity.isPresent()) {
             CategoryEntity categoryEntity = optionalCategoryEntity.get();
+            categoryEntity.setName(category.getName());
             categoryEntity.setDescription(category.getDescription());
             categoryRepository.save(categoryEntity);
         }
     }
 
     @Override
-    public void deleteCategory(String categoryName) {
-        categoryRepository.deleteByName(categoryName);
+    public void deleteCategory(Long categoryId) {
+        categoryRepository.deleteById(categoryId);
     }
 }

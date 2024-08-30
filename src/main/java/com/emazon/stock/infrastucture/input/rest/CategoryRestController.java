@@ -1,6 +1,7 @@
 package com.emazon.stock.infrastucture.input.rest;
 
-import com.emazon.stock.application.dto.CategoryDto;
+import com.emazon.stock.application.dto.CategoryDtoRequest;
+import com.emazon.stock.application.dto.CategoryDtoResponse;
 import com.emazon.stock.application.handler.ICategoryHandler;
 import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.utils.Constants;
@@ -27,7 +28,7 @@ public class CategoryRestController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of categories"),
     })
     @GetMapping
-    public ResponseEntity<PageCustom<CategoryDto>> getAllCategories(
+    public ResponseEntity<PageCustom<CategoryDtoResponse>> getAllCategories(
             @RequestParam(defaultValue = Constants.DEFAULT_PAGE) Integer page,
             @RequestParam(defaultValue = Constants.DEFAULT_SIZE) Integer size,
             @RequestParam(defaultValue = Constants.DEFAULT_SORT_DIRECTION) String sortDirection,
@@ -43,7 +44,7 @@ public class CategoryRestController {
             @ApiResponse(responseCode = "409", description = "Category already exists"),
     })
     @PostMapping
-    public ResponseEntity<Void> saveCategory(@Valid @RequestBody CategoryDto categoryDto) {
+    public ResponseEntity<Void> saveCategory(@Valid @RequestBody CategoryDtoRequest categoryDto) {
         categoryHandler.saveCategory(categoryDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -53,20 +54,20 @@ public class CategoryRestController {
             @ApiResponse(responseCode = "204", description = "Category updated successfully"),
             @ApiResponse(responseCode = "404", description = "Category not found"),
     })
-    @PutMapping
-    public ResponseEntity<Void> updateCategory(@Valid @RequestBody CategoryDto categoryDto) {
-        categoryHandler.updateCategory(categoryDto);
+    @PutMapping("/{categoryId}")
+    public ResponseEntity<Void> updateCategory(@PathVariable Long categoryId,@Valid @RequestBody CategoryDtoRequest categoryDto) {
+        categoryHandler.updateCategory(categoryId,categoryDto);
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Delete a category by name", description = "Deletes an existing category from the system using its name.")
+    @Operation(summary = "Delete a category by id", description = "Deletes an existing category from the system using its id.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Category deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Category not found"),
     })
-    @DeleteMapping("/{categoryName}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable String categoryName) {
-        categoryHandler.deleteCategory(categoryName);
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long categoryId) {
+        categoryHandler.deleteCategory(categoryId);
         return  ResponseEntity.noContent().build();
     }
 

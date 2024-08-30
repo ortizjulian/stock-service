@@ -1,7 +1,8 @@
 package com.emazon.stock.infrastucture.input.rest;
 
 
-import com.emazon.stock.application.dto.BrandDto;
+import com.emazon.stock.application.dto.BrandDtoRequest;
+import com.emazon.stock.application.dto.BrandDtoResponse;
 import com.emazon.stock.application.handler.IBrandHandler;
 import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.utils.Constants;
@@ -28,7 +29,7 @@ public class BrandRestController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of brands"),
     })
     @GetMapping
-    public ResponseEntity<PageCustom<BrandDto>> getAllBrands(
+    public ResponseEntity<PageCustom<BrandDtoResponse>> getAllBrands(
             @RequestParam(defaultValue = Constants.DEFAULT_PAGE) Integer page,
             @RequestParam(defaultValue = Constants.DEFAULT_SIZE) Integer size,
             @RequestParam(defaultValue = Constants.DEFAULT_SORT_DIRECTION) String sortDirection,
@@ -44,8 +45,8 @@ public class BrandRestController {
             @ApiResponse(responseCode = "409", description = "Brand already exists"),
     })
     @PostMapping
-    public ResponseEntity<Void> saveBrand(@Valid @RequestBody BrandDto brandDto) {
-        brandHandler.saveBrand(brandDto);
+    public ResponseEntity<Void> saveBrand(@Valid @RequestBody BrandDtoRequest brandDtoRequest) {
+        brandHandler.saveBrand(brandDtoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -54,20 +55,20 @@ public class BrandRestController {
             @ApiResponse(responseCode = "204", description = "Brand updated successfully"),
             @ApiResponse(responseCode = "404", description = "Brand not found"),
     })
-    @PutMapping
-    public ResponseEntity<Void> updateBrand(@Valid @RequestBody BrandDto brandDto) {
-        brandHandler.updateBrand(brandDto);
+    @PutMapping("/{brandId}")
+    public ResponseEntity<Void> updateBrand(@PathVariable Long brandId,@Valid @RequestBody BrandDtoRequest brandDtoRequest) {
+        brandHandler.updateBrand(brandId,brandDtoRequest);
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Delete a brand by name", description = "Deletes an existing brand from the system using its name.")
+    @Operation(summary = "Delete a brand by name", description = "Deletes an existing brand from the system using its id.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Brand deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Brand not found"),
     })
-    @DeleteMapping("/{brandName}")
-    public ResponseEntity<Void> deleteBrand(@PathVariable String brandName) {
-        brandHandler.deleteBrand(brandName);
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity<Void> deleteBrand(@PathVariable Long categoryId) {
+        brandHandler.deleteBrand(categoryId);
         return ResponseEntity.noContent().build();
     }
 }

@@ -1,7 +1,7 @@
 package com.emazon.stock.infrastucture.input.rest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-import com.emazon.stock.application.dto.BrandDto;
+import com.emazon.stock.application.dto.BrandDtoRequest;
 import com.emazon.stock.application.handler.IBrandHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class BrandRestControllerTest {
 
     @Test
     void BrandRestController_SaveBrand_ShouldReturnCreatedStatus() throws Exception {
-        BrandDto brandDto = new BrandDto("Mattelsa", "Marca colombiana");
+        BrandDtoRequest brandDto = new BrandDtoRequest("Mattelsa", "Marca colombiana");
 
         ResultActions response = mockMvc.perform(post("/brand")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -42,7 +42,7 @@ class BrandRestControllerTest {
 
     @Test
     void BrandRestController_SaveBrand_WhenNameIsNull_ShouldReturnBadRequest() throws Exception {
-        BrandDto invalidBrand = new BrandDto( null, "Ropa de marca colombiana");
+        BrandDtoRequest invalidBrand = new BrandDtoRequest( null, "Ropa de marca colombiana");
 
         ResultActions response = mockMvc.perform(post("/brand")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -53,7 +53,7 @@ class BrandRestControllerTest {
 
     @Test
     void BrandRestController_SaveBrand_WhenDescriptionIsNull_ShouldReturnBadRequest() throws Exception {
-        BrandDto invalidBrand = new BrandDto( "Mattelsa",null);
+        BrandDtoRequest invalidBrand = new BrandDtoRequest( "Mattelsa",null);
 
         ResultActions response = mockMvc.perform(post("/brand")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -65,7 +65,7 @@ class BrandRestControllerTest {
     @Test
     void BrandRestController_SaveBrand_WhenNameExceeds50Characters_ShouldReturnBadRequest() throws Exception {
 
-        BrandDto invalidBrand = new BrandDto(
+        BrandDtoRequest invalidBrand = new BrandDtoRequest(
                 "Este nombre de marca es demasiado largo para probar que la Excepción MethodArgumentNotValidException sea lanzada",
                 "Ropa de marca colombiana");
 
@@ -78,7 +78,7 @@ class BrandRestControllerTest {
     @Test
     void BrandRestController_SaveBrand_WhenDescriptionExceeds120Characters_ShouldReturnBadRequest() throws Exception {
 
-        BrandDto invalidBrand = new BrandDto(
+        BrandDtoRequest invalidBrand = new BrandDtoRequest(
                 "Mattelsa",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet euismod neque vitae eleifend. Nam tempus, ipsum id suscipit faucibus, ante ligula luctus sem, eu dignissim nulla justo vitae tellus. Fusce ut bibendum erat, id porttitor nunc. Cras molestie neque et libero ornare fermentum.");
 

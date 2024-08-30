@@ -6,6 +6,6 @@ public interface ICategoryServicePort {
 
     void saveCategory(Category category);
     PageCustom<Category> getAllCategories(Integer page, Integer size, String sortDirection, String sortBy);
-    void updateCategory(Category category);
-    void deleteCategory(String categoryName);
+    void updateCategory(Long categoryId,Category category);
+    void deleteCategory(Long categoryId);
 }

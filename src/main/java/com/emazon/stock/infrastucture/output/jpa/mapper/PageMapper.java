@@ -5,21 +5,26 @@ import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.infrastucture.output.jpa.entity.BrandEntity;
 import com.emazon.stock.infrastucture.output.jpa.entity.CategoryEntity;
-import lombok.AllArgsConstructor;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-@AllArgsConstructor
-public class PageMapper {
+@Mapper(componentModel = "spring",
+        unmappedSourcePolicy = ReportingPolicy.IGNORE,
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        uses = {CategoryEntityMapper.class, BrandEntityMapper.class })
+public interface PageMapper {
 
-    private final CategoryEntityMapper categoryEntityMapper;
-    private final BrandEntityMapper brandEntityMapper;
+    CategoryEntityMapper CATEGORY_ENTITY_MAPPER = Mappers.getMapper(CategoryEntityMapper.class);
+    BrandEntityMapper BRAND_ENTITY_MAPPER = Mappers.getMapper(BrandEntityMapper.class);
 
-    public PageCustom<Category> toCategoryPageCustom(Page<CategoryEntity> page) {
+    default PageCustom<Category> toCategoryPageCustom(Page<CategoryEntity> page) {
         PageCustom<Category> pageCustom = new PageCustom<>();
         List<Category> categories = page.getContent().stream()
-                .map(categoryEntityMapper::toCategory)
+                .map(CATEGORY_ENTITY_MAPPER::toCategory)
                 .toList();
 
         pageCustom.setContent(categories);
@@ -30,10 +35,10 @@ public class PageMapper {
         return pageCustom;
     }
 
-    public PageCustom<Brand> toBrandPageCustom(Page<BrandEntity> page) {
+    default PageCustom<Brand> toBrandPageCustom(Page<BrandEntity> page) {
         PageCustom<Brand> pageCustom = new PageCustom<>();
         List<Brand> brands = page.getContent().stream()
-                .map(brandEntityMapper::toBrand)
+                .map(BRAND_ENTITY_MAPPER::toBrand)
                 .toList();
 
         pageCustom.setContent(brands);

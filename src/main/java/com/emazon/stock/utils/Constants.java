@@ -12,6 +12,10 @@ public class Constants {
     public static final int MIN_CHARACTERS_DESCRIPTION_BRAND = 1;
     public static final int MAX_CHARACTERS_DESCRIPTION_BRAND = 120;
 
+    public static final int MIN_ARTICLE_QUANTITY = 0;
+    public static final String MIN_ARTICLE_PRICE = "0.0";
+    public static final int MIN_ARTICLE_CATEGORIES = 1;
+    public static final int MAX_ARTICLE_CATEGORIES = 3;
 
     // Pagination defaults
     public static final String DEFAULT_PAGE = "0";
@@ -24,20 +28,28 @@ public class Constants {
     //Exceptions messages
     public static final String RESPONSE_MESSAGE_KEY = "Message";
     //CategoryExceptions
-    public static final String EXCEPTION_CATEGORY_NAME_NULL = "The name cannot be null";
-    public static final String EXCEPTION_CATEGORY_NAME_SIZE = "The name must be between 1 and 50 characters";
-    public static final String EXCEPTION_CATEGORY_DESCRIPTION_NULL = "The description cannot be null";
-    public static final String EXCEPTION_CATEGORY_DESCRIPTION_SIZE = "The description must be between 1 and 90 characters";
+    public static final String EXCEPTION_CATEGORY_NAME_NULL = "The category name cannot be null";
+    public static final String EXCEPTION_CATEGORY_NAME_SIZE = "The category name must be between 1 and 50 characters";
+    public static final String EXCEPTION_CATEGORY_DESCRIPTION_NULL = "The category description cannot be null";
+    public static final String EXCEPTION_CATEGORY_DESCRIPTION_SIZE = "The category description must be between 1 and 90 characters";
     public static final String EXCEPTION_CATEGORY_ALREADY_EXISTS = "There is already a category with that name";
-    public static final String EXCEPTION_CATEGORY_NOT_FOUND = "Category not found with name: ";
+    public static final String EXCEPTION_CATEGORY_NOT_FOUND = "Category not found with ID: ";
     //BrandExceptions
-    // Brand exceptions
-    public static final String EXCEPTION_BRAND_NAME_NULL = "The name cannot be null";
-    public static final String EXCEPTION_BRAND_NAME_SIZE = "The name must be between 1 and 50 characters";
-    public static final String EXCEPTION_BRAND_DESCRIPTION_NULL = "The description cannot be null";
-    public static final String EXCEPTION_BRAND_DESCRIPTION_SIZE = "The description must be between 1 and 120 characters";
+    public static final String EXCEPTION_BRAND_NAME_NULL = "The brand name cannot be null";
+    public static final String EXCEPTION_BRAND_NAME_SIZE = "The brand name must be between 1 and 50 characters";
+    public static final String EXCEPTION_BRAND_DESCRIPTION_NULL = "The brand description cannot be null";
+    public static final String EXCEPTION_BRAND_DESCRIPTION_SIZE = "The brand description must be between 1 and 120 characters";
     public static final String EXCEPTION_BRAND_ALREADY_EXISTS = "There is already a brand with that name";
-    public static final String EXCEPTION_BRAND_NOT_FOUND = "Brand not found with name: ";
+    public static final String EXCEPTION_BRAND_NOT_FOUND = "Brand not found with ID: ";
+    //ArticleExceptions
+    public static final String EXCEPTION_ARTICLE_NAME_BLANK = "The article name cannot be blank";
+    public static final String EXCEPTION_ARTICLE_DESCRIPTION_BLANK = "The article name cannot be blank";
+    public static final String EXCEPTION_ARTICLE_QUANTITY_NEGATIVE = "The article quantity must be a non-negative number";
+    public static final String EXCEPTION_ARTICLE_PRICE_NEGATIVE = "The article price must be a positive number";
+    public static final String EXCEPTION_ARTICLE_BRAND_NULL = "The article brand cannot be null";
+    public static final String EXCEPTION_ARTICLE_CATEGORIES_NULL = "The article categories cannot be null";
+    public static final String EXCEPTION_ARTICLE_CATEGORIES_SIZE = "At least one and at most three categories must be assigned";
+    public static final String EXCEPTION_DUPLICATE_CATEGORIES = "Duplicate categories found in the article.";
     //Pagination Exceptions
     public static final String EXCEPTION_PAGE_NUMBER_NEGATIVE = "Page number cannot be negative.";
     public static final String EXCEPTION_PAGE_SIZE_NEGATIVE = "Page size cannot be negative.";

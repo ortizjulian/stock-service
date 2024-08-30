@@ -6,9 +6,10 @@ import com.emazon.stock.domain.model.PageCustom;
 public interface ICategoryPersistencePort {
 
     void saveCategory(Category category);
-    Boolean findByName(String categoryName);
+    Boolean existsByName(String categoryName);
+    Boolean existById(Long categoryId);
     PageCustom<Category> getAllCategories(Integer page, Integer size, String sortDirection, String sortBy);
-    void updateCategory(Category category);
-    void deleteCategory(String categoryName);
+    void updateCategory(Long categoryId,Category category);
+    void deleteCategory(Long categoryId);
 
 }

@@ -26,6 +26,14 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.CATEGORY_ALREADY_EXISTS.getMessage()));
     }
 
+
+    @ExceptionHandler(DuplicateCategoryException.class)
+    public ResponseEntity<Map<String, String>> handleDuplicateCategoryException(
+            DuplicateCategoryException duplicateCategoryException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.DUPLICATE_CATEGORY_EXCEPTION.getMessage()));
+    }
+
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleCategoryNotFoundException(
             CategoryNotFoundException categoryNotFoundException) {
