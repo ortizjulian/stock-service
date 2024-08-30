@@ -9,12 +9,12 @@ public class ArticleDtoResponse {
     private Integer quantity;
     private Float price;
     private BrandDtoResponse brand;
-    private List<CategoryDtoResponse> categories;
+    private List<CategoryArticleDtoResponse> categories;
 
     public ArticleDtoResponse(){}
 
 
-    public ArticleDtoResponse(Long id, String name, String description, Integer quantity, Float price, BrandDtoResponse brand, List<CategoryDtoResponse> categories) {
+    public ArticleDtoResponse(Long id, String name, String description, Integer quantity, Float price, BrandDtoResponse brand, List<CategoryArticleDtoResponse> categories) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -72,11 +72,11 @@ public class ArticleDtoResponse {
         this.brand = brand;
     }
 
-    public List<CategoryDtoResponse> getCategories() {
+    public List<CategoryArticleDtoResponse> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<CategoryDtoResponse> categories) {
+    public void setCategories(List<CategoryArticleDtoResponse> categories) {
         this.categories = categories;
     }
 }

@@ -29,9 +29,7 @@ public class ArticleRestController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of Article"),
     })
     @GetMapping
-    public ResponseEntity<List<ArticleDtoResponse>> getAllBrands(
-
-    ){
+    public ResponseEntity<List<ArticleDtoResponse>> getAllBrands(){
         return ResponseEntity.ok(articleHandler.getAllArticles());
     }
 
