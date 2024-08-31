@@ -3,6 +3,8 @@ package com.emazon.stock.infrastucture.input.rest;
 import com.emazon.stock.application.dto.ArticleDtoRequest;
 import com.emazon.stock.application.dto.ArticleDtoResponse;
 import com.emazon.stock.application.handler.IArticleHandler;
+import com.emazon.stock.domain.model.PageCustom;
+import com.emazon.stock.utils.Constants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -12,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("article")
@@ -29,8 +29,16 @@ public class ArticleRestController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of Article"),
     })
     @GetMapping
-    public ResponseEntity<List<ArticleDtoResponse>> getAllBrands(){
-        return ResponseEntity.ok(articleHandler.getAllArticles());
+    public ResponseEntity<PageCustom<ArticleDtoResponse>> getAllBrands(
+            @RequestParam(defaultValue = Constants.DEFAULT_PAGE) Integer page,
+            @RequestParam(defaultValue = Constants.DEFAULT_SIZE) Integer size,
+            @RequestParam(defaultValue = Constants.DEFAULT_SORT_DIRECTION) String sortDirection,
+            @RequestParam(defaultValue = Constants.DEFAULT_SORT_BY) String sortBy,
+            @RequestParam(defaultValue = Constants.DEFAULT_BRAND_NAME) String brandName,
+            @RequestParam(defaultValue = Constants.DEFAULT_CATEGORY_NAME) String categoryName
+
+    ){
+        return ResponseEntity.ok(articleHandler.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName));
     }
 
     @Operation(summary = "Create a new Article", description = "Adds a new Article to the system.")

@@ -1,9 +1,11 @@
 package com.emazon.stock.domain.usecase;
 
+import com.emazon.stock.application.dto.ArticleDtoResponse;
 import com.emazon.stock.domain.exception.DuplicateCategoryException;
 import com.emazon.stock.domain.model.Article;
 import com.emazon.stock.domain.model.Brand;
 import com.emazon.stock.domain.model.Category;
+import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.domain.spi.IArticlePersistencePort;
 import com.emazon.stock.domain.spi.IBrandPersistencePort;
 import com.emazon.stock.domain.spi.ICategoryPersistencePort;
@@ -96,14 +98,17 @@ class ArticleUseCaseTest {
                 new Article(2L, "Pantalón", "Pantalón azul", 80, 800.0F, new Brand(2L, "Levis", "Marca internacional"), Arrays.asList(new Category(2L, "Moda", "Moda y estilo")))
         );
 
-        Mockito.when(articlePersistencePort.getAllArticles()).thenReturn(mockArticles);
+        PageCustom<Article> articlePageCustom = new PageCustom<>();
+        articlePageCustom.setContent(mockArticles);
+
+        Mockito.when(articlePersistencePort.getAllArticles(0,10,"ASC","name", "", "")).thenReturn(articlePageCustom);
 
 
-        List<Article> articles = articleUseCase.getAllArticles();
+        PageCustom<Article> articles = articleUseCase.getAllArticles(0,10,"ASC","name", "", "");
 
-        assertEquals(mockArticles, articles);
+        assertEquals(mockArticles, articles.getContent());
 
-        Mockito.verify(articlePersistencePort, Mockito.times(1)).getAllArticles();
+        Mockito.verify(articlePersistencePort, Mockito.times(1)).getAllArticles(0,10,"ASC","name", "", "");
     }
 
 }

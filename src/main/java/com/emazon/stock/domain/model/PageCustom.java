@@ -10,7 +10,10 @@ public class PageCustom<T>{
     private Boolean hasNext;
     private Boolean hasPrevious;
 
-    public PageCustom(){}
+    public PageCustom(){
+        // This empty constructor allows for the creation of instances
+        // of the PageCustom class without needing to provide any parameters.
+    }
 
     public List<T> getContent() {
         return content;

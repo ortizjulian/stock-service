@@ -40,7 +40,7 @@ public class BeanConfiguration {
 
     @Bean
     public IArticlePersistencePort articlePersistencePort(){
-        return new ArticleJpaAdpater(articleRepository,brandRepository,categoryRepository, articleEntityMapper);
+        return new ArticleJpaAdpater(articleRepository,brandRepository,categoryRepository, articleEntityMapper, pageMapper);
     }
 
     @Bean

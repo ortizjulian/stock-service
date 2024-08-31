@@ -5,6 +5,10 @@ import com.emazon.stock.utils.Constants;
 
 public class PaginationValidator {
 
+    private PaginationValidator () {
+        throw new UnsupportedOperationException(Constants.UTILITY_CLASS_SHOULD_NOT_BE_INSTANTIATED);
+    }
+
     public static void validatePagination(Integer page, Integer size, String sortDirection) {
         if (page < 0) {
             throw new PaginationParametersInvalidException(Constants.EXCEPTION_PAGE_NUMBER_NEGATIVE);
