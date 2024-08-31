@@ -1,7 +1,9 @@
 package com.emazon.stock.application.mapper;
 
+import com.emazon.stock.application.dto.ArticleDtoResponse;
 import com.emazon.stock.application.dto.BrandDtoResponse;
 import com.emazon.stock.application.dto.CategoryDtoResponse;
+import com.emazon.stock.domain.model.Article;
 import com.emazon.stock.domain.model.Brand;
 import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.domain.model.PageCustom;
@@ -14,11 +16,12 @@ import java.util.List;
 @Mapper(componentModel = "spring",
         unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = {CategoryDtoResponseMapper.class,BrandDtoResponseMapper.class })
+        uses = {CategoryDtoResponseMapper.class,BrandDtoResponseMapper.class,ArticleDtoResponseMapper.class })
 public interface  PageDtoMapper {
 
      CategoryDtoResponseMapper CATEGORY_DTO_RESPONSE_MAPPER = Mappers.getMapper(CategoryDtoResponseMapper.class);
      BrandDtoResponseMapper BRAND_DTO_RESPONSE_MAPPER = Mappers.getMapper(BrandDtoResponseMapper.class);
+    ArticleDtoResponseMapper ARTICLE_DTO_RESPONSE_MAPPER = Mappers.getMapper(ArticleDtoResponseMapper.class);
 
     default PageCustom<CategoryDtoResponse> toCategoryDtoPageCustom(PageCustom<Category> page) {
         PageCustom<CategoryDtoResponse> pageCustom = new PageCustom<>();
@@ -41,6 +44,20 @@ public interface  PageDtoMapper {
                 .toList();
 
         pageCustom.setContent(brands);
+        pageCustom.setTotalElements(page.getTotalElements());
+        pageCustom.setTotalPages(page.getTotalPages());
+        pageCustom.setHasNext(page.getHasNext());
+        pageCustom.setHasPrevious(page.getHasPrevious());
+        return pageCustom;
+    }
+
+    default PageCustom<ArticleDtoResponse> toArticleDtoPageCustom(PageCustom<Article> page) {
+        PageCustom<ArticleDtoResponse> pageCustom = new PageCustom<>();
+        List<ArticleDtoResponse> articles = page.getContent().stream()
+                .map(ARTICLE_DTO_RESPONSE_MAPPER::toArticleDtoResponse)
+                .toList();
+
+        pageCustom.setContent(articles);
         pageCustom.setTotalElements(page.getTotalElements());
         pageCustom.setTotalPages(page.getTotalPages());
         pageCustom.setHasNext(page.getHasNext());

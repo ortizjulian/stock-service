@@ -2,11 +2,9 @@ package com.emazon.stock.application.handler;
 
 import com.emazon.stock.application.dto.ArticleDtoRequest;
 import com.emazon.stock.application.dto.ArticleDtoResponse;
-
-import java.util.List;
-
+import com.emazon.stock.domain.model.PageCustom;
 public interface IArticleHandler {
 
         void saveArticle(ArticleDtoRequest articleDtoRequest);
-        List<ArticleDtoResponse> getAllArticles();
+        PageCustom<ArticleDtoResponse> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName);
 }

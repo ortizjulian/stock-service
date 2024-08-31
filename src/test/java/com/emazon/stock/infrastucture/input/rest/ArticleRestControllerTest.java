@@ -2,6 +2,7 @@ package com.emazon.stock.infrastucture.input.rest;
 
 import com.emazon.stock.application.dto.*;
 import com.emazon.stock.application.handler.IArticleHandler;
+import com.emazon.stock.domain.model.PageCustom;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -84,12 +85,15 @@ class ArticleRestControllerTest {
                 new ArticleDtoResponse(2L, "Pantalón", "Pantalón azul", 2, 50f, new BrandDtoResponse(1L,"Nike","Ropa"), categories2)
         );
 
-        Mockito.when(articleHandler.getAllArticles()).thenReturn(articles);
+        PageCustom<ArticleDtoResponse> articleDtoResponsePageCustom = new PageCustom<>();
+        articleDtoResponsePageCustom.setContent(articles);
+
+        Mockito.when(articleHandler.getAllArticles(0,10,"ASC","name", "", "")).thenReturn(articleDtoResponsePageCustom);
 
         ResultActions response = mockMvc.perform(get("/article")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(articles)));
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(articleDtoResponsePageCustom)));
     }
 }

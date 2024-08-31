@@ -1,6 +1,11 @@
 package com.emazon.stock.utils;
 
 public class Constants {
+    private Constants () {
+        throw new UnsupportedOperationException(UTILITY_CLASS_SHOULD_NOT_BE_INSTANTIATED);
+    }
+
+    public static final String UTILITY_CLASS_SHOULD_NOT_BE_INSTANTIATED = "Utility class should not be instantiated";
 
     public static final int MIN_CHARACTERS_NAME_CATEGORY = 1;
     public static final int MAX_CHARACTERS_NAME_CATEGORY = 50;
@@ -16,6 +21,9 @@ public class Constants {
     public static final String MIN_ARTICLE_PRICE = "0.0";
     public static final int MIN_ARTICLE_CATEGORIES = 1;
     public static final int MAX_ARTICLE_CATEGORIES = 3;
+    public static final String DEFAULT_BRAND_NAME = "";
+    public static final String DEFAULT_CATEGORY_NAME = "";
+
 
     // Pagination defaults
     public static final String DEFAULT_PAGE = "0";
@@ -33,14 +41,16 @@ public class Constants {
     public static final String EXCEPTION_CATEGORY_DESCRIPTION_NULL = "The category description cannot be null";
     public static final String EXCEPTION_CATEGORY_DESCRIPTION_SIZE = "The category description must be between 1 and 90 characters";
     public static final String EXCEPTION_CATEGORY_ALREADY_EXISTS = "There is already a category with that name";
-    public static final String EXCEPTION_CATEGORY_NOT_FOUND = "Category not found with ID: ";
+    public static final String EXCEPTION_CATEGORY_NOT_FOUND_BY_NAME = "Category not found with name: ";
+    public static final String EXCEPTION_CATEGORY_NOT_FOUND_BY_ID = "Category not found with ID: ";
     //BrandExceptions
     public static final String EXCEPTION_BRAND_NAME_NULL = "The brand name cannot be null";
     public static final String EXCEPTION_BRAND_NAME_SIZE = "The brand name must be between 1 and 50 characters";
     public static final String EXCEPTION_BRAND_DESCRIPTION_NULL = "The brand description cannot be null";
     public static final String EXCEPTION_BRAND_DESCRIPTION_SIZE = "The brand description must be between 1 and 120 characters";
     public static final String EXCEPTION_BRAND_ALREADY_EXISTS = "There is already a brand with that name";
-    public static final String EXCEPTION_BRAND_NOT_FOUND = "Brand not found with ID: ";
+    public static final String EXCEPTION_BRAND_NOT_FOUND_BY_NAME = "Brand not found with name: ";
+    public static final String EXCEPTION_BRAND_NOT_FOUND_BY_ID = "Brand not found with ID: ";
     //ArticleExceptions
     public static final String EXCEPTION_ARTICLE_NAME_BLANK = "The article name cannot be blank";
     public static final String EXCEPTION_ARTICLE_DESCRIPTION_BLANK = "The article name cannot be blank";

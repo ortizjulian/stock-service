@@ -6,12 +6,12 @@ import com.emazon.stock.domain.exception.CategoryNotFoundException;
 import com.emazon.stock.domain.exception.DuplicateCategoryException;
 import com.emazon.stock.domain.model.Article;
 import com.emazon.stock.domain.model.Category;
+import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.domain.spi.IArticlePersistencePort;
 import com.emazon.stock.domain.spi.IBrandPersistencePort;
 import com.emazon.stock.domain.spi.ICategoryPersistencePort;
+import com.emazon.stock.domain.utils.PaginationValidator;
 import com.emazon.stock.utils.Constants;
-
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,7 +31,7 @@ public class ArticleUseCase implements IArticleServicePort {
     public void saveArticle(Article article) {
 
         if (!brandPersistencePort.existById(article.getBrand().getId())) {
-            throw new BrandNotFoundException(Constants.EXCEPTION_BRAND_NOT_FOUND +article.getBrand().getId());
+            throw new BrandNotFoundException(Constants.EXCEPTION_BRAND_NOT_FOUND_BY_ID +article.getBrand().getId());
         }
 
         Set<Long> invalidCategoryIds = article.getCategories().stream()
@@ -48,14 +48,25 @@ public class ArticleUseCase implements IArticleServicePort {
         }
 
         if (!invalidCategoryIds.isEmpty()) {
-                    throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND + invalidCategoryIds);
+                    throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND_BY_ID + invalidCategoryIds);
         }
 
         this.articlePersistencePort.saveArticle(article);
     }
 
     @Override
-    public List<Article> getAllArticles() {
-        return this.articlePersistencePort.getAllArticles();
+    public PageCustom<Article> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName) {
+
+        PaginationValidator.validatePagination(page,size,sortDirection);
+
+        if (brandName != null && !brandName.isBlank() && !brandPersistencePort.existsByName(brandName)) {
+                throw new BrandNotFoundException(Constants.EXCEPTION_BRAND_NOT_FOUND_BY_NAME + brandName);
+
+        }
+
+        if (categoryName != null && !categoryName.isBlank() && !categoryPersistencePort.existsByName(categoryName)) {
+            throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND_BY_NAME + categoryName);
+        }
+        return this.articlePersistencePort.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName);
     }
 }
