@@ -19,9 +19,15 @@ import com.emazon.stock.infrastucture.output.jpa.mapper.PageMapper;
 import com.emazon.stock.infrastucture.output.jpa.repository.IArticleRepository;
 import com.emazon.stock.infrastucture.output.jpa.repository.IBrandRepository;
 import com.emazon.stock.infrastucture.output.jpa.repository.ICategoryRepository;
+import com.emazon.stock.infrastucture.output.security.entity.SecurityUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @RequiredArgsConstructor
@@ -67,5 +73,22 @@ public class BeanConfiguration {
     @Bean
     public ICategoryServicePort categoryServicePort(){
         return new CategoryUseCase(categoryPersistencePort());
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        return authProvider;
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return SecurityUser::new;
     }
 }
