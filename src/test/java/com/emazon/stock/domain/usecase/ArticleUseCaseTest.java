@@ -1,6 +1,5 @@
 package com.emazon.stock.domain.usecase;
 
-import com.emazon.stock.application.dto.ArticleDtoResponse;
 import com.emazon.stock.domain.exception.DuplicateCategoryException;
 import com.emazon.stock.domain.model.Article;
 import com.emazon.stock.domain.model.Brand;
@@ -11,10 +10,12 @@ import com.emazon.stock.domain.spi.IBrandPersistencePort;
 import com.emazon.stock.domain.spi.ICategoryPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@ExtendWith(MockitoExtension.class)
 class ArticleUseCaseTest {
 
     @Mock

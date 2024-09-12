@@ -24,7 +24,6 @@ public class Constants {
     public static final String DEFAULT_BRAND_NAME = "";
     public static final String DEFAULT_CATEGORY_NAME = "";
 
-
     // Pagination defaults
     public static final String DEFAULT_PAGE = "0";
     public static final String DEFAULT_SIZE = "10";

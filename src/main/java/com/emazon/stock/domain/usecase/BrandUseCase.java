@@ -11,7 +11,7 @@ import com.emazon.stock.utils.Constants;
 
 public class BrandUseCase implements IBrandServicePort {
 
-    private final IBrandPersistencePort brandPersistencePort;
+    private IBrandPersistencePort brandPersistencePort;
 
     public BrandUseCase(IBrandPersistencePort brandPersistencePort) {
         this.brandPersistencePort = brandPersistencePort;

@@ -11,7 +11,7 @@ import com.emazon.stock.utils.Constants;
 
 public class CategoryUseCase implements ICategoryServicePort {
 
-    private final ICategoryPersistencePort categoryPersistencePort;
+    private ICategoryPersistencePort categoryPersistencePort;
 
     public CategoryUseCase(ICategoryPersistencePort categoryPersistencePort) {
         this.categoryPersistencePort = categoryPersistencePort;
