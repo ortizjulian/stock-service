@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 
 public class ArticleUseCase implements IArticleServicePort {
 
-    private final IArticlePersistencePort articlePersistencePort;
-    private final IBrandPersistencePort brandPersistencePort;
-    private final ICategoryPersistencePort categoryPersistencePort;
+    private IArticlePersistencePort articlePersistencePort;
+    private IBrandPersistencePort brandPersistencePort;
+    private ICategoryPersistencePort categoryPersistencePort;
 
     public ArticleUseCase(IArticlePersistencePort articlePersistencePort, IBrandPersistencePort brandPersistencePort, ICategoryPersistencePort categoryPersistencePort) {
         this.articlePersistencePort = articlePersistencePort;
@@ -34,11 +34,6 @@ public class ArticleUseCase implements IArticleServicePort {
             throw new BrandNotFoundException(Constants.EXCEPTION_BRAND_NOT_FOUND_BY_ID +article.getBrand().getId());
         }
 
-        Set<Long> invalidCategoryIds = article.getCategories().stream()
-                .map(Category::getId)
-                .filter(categoryId -> !categoryPersistencePort.existById(categoryId))
-                .collect(Collectors.toSet());
-
         Set<Long> categoryIds = article.getCategories().stream()
                 .map(Category::getId)
                 .collect(Collectors.toSet());
@@ -46,6 +41,11 @@ public class ArticleUseCase implements IArticleServicePort {
         if (categoryIds.size() != article.getCategories().size()) {
             throw new DuplicateCategoryException();
         }
+
+        Set<Long> invalidCategoryIds = article.getCategories().stream()
+                .map(Category::getId)
+                .filter(categoryId -> !categoryPersistencePort.existById(categoryId))
+                .collect(Collectors.toSet());
 
         if (!invalidCategoryIds.isEmpty()) {
                     throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND_BY_ID + invalidCategoryIds);

@@ -2,7 +2,9 @@ package com.emazon.stock.infrastucture.input.rest;
 
 import com.emazon.stock.application.dto.*;
 import com.emazon.stock.application.handler.IArticleHandler;
+import com.emazon.stock.configuration.TestSecurityConfig;
 import com.emazon.stock.domain.model.PageCustom;
+import com.emazon.stock.infrastucture.output.security.jwt.JwtTokenManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -24,6 +27,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @WebMvcTest(controllers = ArticleRestController.class)
 @ExtendWith(MockitoExtension.class)
+@ContextConfiguration(classes = {ArticleRestController.class, TestSecurityConfig.class})
 class ArticleRestControllerTest {
 
     @Autowired
@@ -31,6 +35,9 @@ class ArticleRestControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @MockBean
+    private JwtTokenManager jwtTokenManager;
 
     @MockBean
     private IArticleHandler articleHandler;
@@ -71,7 +78,7 @@ class ArticleRestControllerTest {
     }
 
     @Test
-    void ArticleRestController_GetAllBrands_ShouldReturnListOfArticles() throws Exception {
+    void ArticleRestController_GetAllArticles_ShouldReturnListOfArticles() throws Exception {
         List<CategoryArticleDtoResponse> categories1 = List.of(
                 new CategoryArticleDtoResponse(1L, "Ropa"),
                 new CategoryArticleDtoResponse(2L, "Camisa")

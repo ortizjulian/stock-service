@@ -1,7 +1,6 @@
 package com.emazon.stock.infrastucture.configuration;
 
 import com.emazon.stock.infrastucture.output.security.jwt.JwtAuthenticationFilter;
-import com.emazon.stock.utils.Constants;
 import com.emazon.stock.utils.SecurityConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

@@ -2,6 +2,8 @@ package com.emazon.stock.infrastucture.input.rest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import com.emazon.stock.application.dto.CategoryDtoRequest;
+import com.emazon.stock.configuration.TestSecurityConfig;
+import com.emazon.stock.infrastucture.output.security.jwt.JwtTokenManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -17,6 +20,7 @@ import com.emazon.stock.application.handler.ICategoryHandler;
 
 @WebMvcTest(controllers = CategoryRestController.class)
 @ExtendWith(MockitoExtension.class)
+@ContextConfiguration(classes = {CategoryRestController.class, TestSecurityConfig.class})
 class CategoryRestControllerTest {
 
     @Autowired
@@ -27,6 +31,9 @@ class CategoryRestControllerTest {
 
     @MockBean
     private ICategoryHandler categoryHandler;
+
+    @MockBean
+    private JwtTokenManager jwtTokenManager;
 
     @Test
     void CategoryRestController_SaveCategory_ShouldReturnCreatedStatus() throws Exception {
