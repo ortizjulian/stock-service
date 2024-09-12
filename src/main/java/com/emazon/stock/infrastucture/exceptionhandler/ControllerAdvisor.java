@@ -57,6 +57,12 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(MESSAGE, brandNotFoundException.getMessage()));
     }
 
+    @ExceptionHandler(ArticleNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleArticleNotFoundException(
+            ArticleNotFoundException articleNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(MESSAGE, articleNotFoundException.getMessage()));
+    }
 
     @ExceptionHandler(PaginationParametersInvalidException.class)
     public ResponseEntity<Map<String, String>> handlePaginationParametersInvalidException(

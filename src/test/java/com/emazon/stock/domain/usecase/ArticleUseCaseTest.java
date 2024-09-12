@@ -1,5 +1,6 @@
 package com.emazon.stock.domain.usecase;
 
+import com.emazon.stock.domain.exception.ArticleNotFoundException;
 import com.emazon.stock.domain.exception.DuplicateCategoryException;
 import com.emazon.stock.domain.model.Article;
 import com.emazon.stock.domain.model.Brand;
@@ -111,6 +112,32 @@ class ArticleUseCaseTest {
         assertEquals(mockArticles, articles.getContent());
 
         Mockito.verify(articlePersistencePort, Mockito.times(1)).getAllArticles(0,10,"ASC","name", "", "");
+    }
+
+    @Test
+    void ArticleUseCase_UpdateQuantity_WhenArticleExists_ShouldUpdateQuantity() {
+        Long articleId = 1L;
+        Integer quantity = 10;
+
+        Mockito.when(articlePersistencePort.existById(articleId)).thenReturn(true);
+        articleUseCase.updateQuantity(articleId, quantity);
+
+        Mockito.verify(articlePersistencePort, Mockito.times(1)).updateQuantity(articleId, quantity);
+    }
+
+    @Test
+    void ArticleUseCase_UpdateQuantity_WhenArticleDoesNotExist_ShouldThrowArticleNotFoundException() {
+        Long articleId = 1L;
+        Integer quantity = 10;
+
+        Mockito.when(articlePersistencePort.existById(articleId)).thenReturn(false);
+
+
+        assertThrows(ArticleNotFoundException.class, () -> {
+            articleUseCase.updateQuantity(articleId, quantity);
+        });
+
+        Mockito.verify(articlePersistencePort, Mockito.never()).updateQuantity(Mockito.anyLong(), Mockito.anyInt());
     }
 
 }

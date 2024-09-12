@@ -2,6 +2,7 @@ package com.emazon.stock.application.handler;
 
 import com.emazon.stock.application.dto.ArticleDtoRequest;
 import com.emazon.stock.application.dto.ArticleDtoResponse;
+import com.emazon.stock.application.dto.UpdateQuantityRequestDto;
 import com.emazon.stock.application.mapper.ArticleDtoRequestMapper;
 import com.emazon.stock.application.mapper.ArticleDtoResponseMapper;
 import com.emazon.stock.application.mapper.PageDtoMapper;
@@ -52,6 +53,11 @@ public class ArticleHandler implements IArticleHandler{
     public PageCustom<ArticleDtoResponse> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName) {
         PageCustom<Article> articleList = this.articleServicePort.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName);
         return pageDtoMapper.toArticleDtoPageCustom(articleList);
+    }
+
+    @Override
+    public void updateQuantity(UpdateQuantityRequestDto updateQuantityRequestDto) {
+        this.articleServicePort.updateQuantity(updateQuantityRequestDto.getArticleId(),updateQuantityRequestDto.getQuantity());
     }
 
 }

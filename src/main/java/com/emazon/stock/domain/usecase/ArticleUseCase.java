@@ -1,6 +1,7 @@
 package com.emazon.stock.domain.usecase;
 
 import com.emazon.stock.domain.api.IArticleServicePort;
+import com.emazon.stock.domain.exception.ArticleNotFoundException;
 import com.emazon.stock.domain.exception.BrandNotFoundException;
 import com.emazon.stock.domain.exception.CategoryNotFoundException;
 import com.emazon.stock.domain.exception.DuplicateCategoryException;
@@ -68,5 +69,14 @@ public class ArticleUseCase implements IArticleServicePort {
             throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND_BY_NAME + categoryName);
         }
         return this.articlePersistencePort.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName);
+    }
+
+    @Override
+    public void updateQuantity(Long articleId, Integer quantity) {
+        if (!articlePersistencePort.existById(articleId)) {
+            throw new ArticleNotFoundException(Constants.EXCEPTION_ARTICLE_NOT_FOUND_BY_ID +articleId);
+        }
+
+        this.articlePersistencePort.updateQuantity(articleId,quantity);
     }
 }

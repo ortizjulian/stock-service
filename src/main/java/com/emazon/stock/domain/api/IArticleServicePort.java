@@ -6,4 +6,5 @@ import com.emazon.stock.domain.model.PageCustom;
 public interface IArticleServicePort {
     void saveArticle(Article article);
     PageCustom<Article> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName);
+    void updateQuantity(Long articleId, Integer quantity);
 }

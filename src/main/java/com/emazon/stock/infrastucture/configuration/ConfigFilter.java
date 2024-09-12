@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -18,7 +17,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class ConfigFilter {
-    private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthFilter;
 
     @Bean
@@ -31,6 +29,7 @@ public class ConfigFilter {
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/swagger-ui/**","/v3/api-docs/**").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/article/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
+                                .requestMatchers(HttpMethod.PATCH,"/article/updateQuantity").hasAuthority(SecurityConstants.ROLE_WAREHOUSE_ASSISTANT)
                                 .requestMatchers(HttpMethod.POST,"/category/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
                                 .requestMatchers(HttpMethod.POST,"/brand/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
                                 .requestMatchers("/article/**").permitAll()
@@ -40,8 +39,7 @@ public class ConfigFilter {
                 )
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                ).authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                ).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
