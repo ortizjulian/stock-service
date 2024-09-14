@@ -7,6 +7,7 @@ import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.infrastucture.output.jpa.entity.ArticleEntity;
 import com.emazon.stock.infrastucture.output.jpa.entity.BrandEntity;
 import com.emazon.stock.infrastucture.output.jpa.entity.CategoryEntity;
+import com.emazon.stock.utils.Constants;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
@@ -14,7 +15,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
+@Mapper(componentModel = Constants.MAPPER_STRING,
         unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         uses = {CategoryEntityMapper.class, BrandEntityMapper.class, ArticleEntityMapper.class })

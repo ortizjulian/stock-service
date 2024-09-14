@@ -7,6 +7,8 @@ public class Constants {
 
     public static final String UTILITY_CLASS_SHOULD_NOT_BE_INSTANTIATED = "Utility class should not be instantiated";
 
+    public static final String MAPPER_STRING = "spring";
+
     public static final int MIN_CHARACTERS_NAME_CATEGORY = 1;
     public static final int MAX_CHARACTERS_NAME_CATEGORY = 50;
     public static final int MIN_CHARACTERS_DESCRIPTION_CATEGORY = 1;
@@ -67,6 +69,13 @@ public class Constants {
     public static final String EXCEPTION_PAGE_NUMBER_NEGATIVE = "Page number cannot be negative.";
     public static final String EXCEPTION_PAGE_SIZE_NEGATIVE = "Page size cannot be negative.";
     public static final String EXCEPTION_SORT_DIRECTION_INVALID = "Sort direction must be 'ASC' or 'DESC'.";
+
+    //MAPPERS - ARTICLE
+    public static final String BRAND_ENTITY = "brandEntity";
+    public static final String ARTICLE_CATEGORIES = "articleCategories";
+    public static final String BRAND = "brand";
+    public static final String CATEGORIES = "categories";
+
 }
 
 

@@ -7,13 +7,14 @@ import com.emazon.stock.domain.model.Article;
 import com.emazon.stock.domain.model.Brand;
 import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.domain.model.PageCustom;
+import com.emazon.stock.utils.Constants;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
+@Mapper(componentModel = Constants.MAPPER_STRING,
         unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         uses = {CategoryDtoResponseMapper.class,BrandDtoResponseMapper.class,ArticleDtoResponseMapper.class })
