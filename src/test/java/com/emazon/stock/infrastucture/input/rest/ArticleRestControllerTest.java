@@ -24,6 +24,7 @@ import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 
 @WebMvcTest(controllers = ArticleRestController.class)
 @ExtendWith(MockitoExtension.class)
@@ -103,4 +104,40 @@ class ArticleRestControllerTest {
         response.andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(articleDtoResponsePageCustom)));
     }
+
+    @Test
+    void ArticleRestController_UpdateQuantity_WhenValidRequest_ShouldReturnNoContent() throws Exception {
+        UpdateQuantityRequestDto validRequest = new UpdateQuantityRequestDto(1L, 10);
+
+        Mockito.doNothing().when(articleHandler).updateQuantity(validRequest);
+
+        ResultActions response = mockMvc.perform(patch("/article/updateQuantity")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(validRequest)));
+
+        response.andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    void ArticleRestController_UpdateQuantity_WhenArticleIdIsNull_ShouldReturnBadRequest() throws Exception {
+        UpdateQuantityRequestDto invalidRequest = new UpdateQuantityRequestDto(null, 10);
+
+        ResultActions response = mockMvc.perform(patch("/article/updateQuantity")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(invalidRequest)));
+
+        response.andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    void ArticleRestController_UpdateQuantity_WhenQuantityIsNotPositive_ShouldReturnBadRequest() throws Exception {
+        UpdateQuantityRequestDto invalidRequest = new UpdateQuantityRequestDto(1L, -10);
+
+        ResultActions response = mockMvc.perform(patch("/article/updateQuantity")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(invalidRequest)));
+
+        response.andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
 }

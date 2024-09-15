@@ -48,6 +48,11 @@ public class ArticleJpaAdpater implements IArticlePersistencePort {
     }
 
     @Override
+    public Boolean existById(Long articleId) {
+        return articleRepository.findById(articleId).isPresent();
+    }
+
+    @Override
     public PageCustom<Article> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName) {
 
         Sort.Direction direction = Sort.Direction.fromString(sortDirection);
@@ -71,5 +76,15 @@ public class ArticleJpaAdpater implements IArticlePersistencePort {
         return pageMapper.toArticlePageCustom(articlePage);
     }
 
+    @Override
+    public void updateQuantity(Long articleId, Integer quantity) {
+        Optional<ArticleEntity> optionalArticleEntity = articleRepository.findById(articleId);
+        if(optionalArticleEntity.isPresent()){
+            ArticleEntity articleEntity = optionalArticleEntity.get();
+            articleEntity.setQuantity(articleEntity.getQuantity() + quantity);
+
+            articleRepository.save(articleEntity);
+        }
+    }
 
 }

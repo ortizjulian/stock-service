@@ -1,6 +1,5 @@
 package com.emazon.stock.infrastucture.output.security.jwt;
 
-import com.emazon.stock.utils.Constants;
 import com.emazon.stock.utils.SecurityConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

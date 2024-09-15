@@ -7,6 +7,8 @@ public class Constants {
 
     public static final String UTILITY_CLASS_SHOULD_NOT_BE_INSTANTIATED = "Utility class should not be instantiated";
 
+    public static final String MAPPER_STRING = "spring";
+
     public static final int MIN_CHARACTERS_NAME_CATEGORY = 1;
     public static final int MAX_CHARACTERS_NAME_CATEGORY = 50;
     public static final int MIN_CHARACTERS_DESCRIPTION_CATEGORY = 1;
@@ -51,6 +53,9 @@ public class Constants {
     public static final String EXCEPTION_BRAND_NOT_FOUND_BY_NAME = "Brand not found with name: ";
     public static final String EXCEPTION_BRAND_NOT_FOUND_BY_ID = "Brand not found with ID: ";
     //ArticleExceptions
+    public static final String EXCEPTION_ARTICLE_ID_NULL = "Article ID cannot be null";
+    public static final String EXCEPTION_ARTICLE_QUANTITY_NULL = "Quantity cannot be null";
+    public static final String EXCEPTION_ARTICLE_QUANTITY_POSITIVE = "Quantity must be a positive number";
     public static final String EXCEPTION_ARTICLE_NAME_BLANK = "The article name cannot be blank";
     public static final String EXCEPTION_ARTICLE_DESCRIPTION_BLANK = "The article name cannot be blank";
     public static final String EXCEPTION_ARTICLE_QUANTITY_NEGATIVE = "The article quantity must be a non-negative number";
@@ -59,10 +64,18 @@ public class Constants {
     public static final String EXCEPTION_ARTICLE_CATEGORIES_NULL = "The article categories cannot be null";
     public static final String EXCEPTION_ARTICLE_CATEGORIES_SIZE = "At least one and at most three categories must be assigned";
     public static final String EXCEPTION_DUPLICATE_CATEGORIES = "Duplicate categories found in the article.";
+    public static final String EXCEPTION_ARTICLE_NOT_FOUND_BY_ID = "Article not found with ID: ";
     //Pagination Exceptions
     public static final String EXCEPTION_PAGE_NUMBER_NEGATIVE = "Page number cannot be negative.";
     public static final String EXCEPTION_PAGE_SIZE_NEGATIVE = "Page size cannot be negative.";
     public static final String EXCEPTION_SORT_DIRECTION_INVALID = "Sort direction must be 'ASC' or 'DESC'.";
+
+    //MAPPERS - ARTICLE
+    public static final String BRAND_ENTITY = "brandEntity";
+    public static final String ARTICLE_CATEGORIES = "articleCategories";
+    public static final String BRAND = "brand";
+    public static final String CATEGORIES = "categories";
+
 }
 
 
