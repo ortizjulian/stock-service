@@ -107,7 +107,7 @@ class ArticleRestControllerTest {
 
     @Test
     void ArticleRestController_UpdateQuantity_WhenValidRequest_ShouldReturnNoContent() throws Exception {
-        UpdateQuantityRequestDto validRequest = new UpdateQuantityRequestDto(1L, 10);
+        UpdateQuantityRequest validRequest = new UpdateQuantityRequest(1L, 10);
 
         Mockito.doNothing().when(articleHandler).updateQuantity(validRequest);
 
@@ -120,7 +120,7 @@ class ArticleRestControllerTest {
 
     @Test
     void ArticleRestController_UpdateQuantity_WhenArticleIdIsNull_ShouldReturnBadRequest() throws Exception {
-        UpdateQuantityRequestDto invalidRequest = new UpdateQuantityRequestDto(null, 10);
+        UpdateQuantityRequest invalidRequest = new UpdateQuantityRequest(null, 10);
 
         ResultActions response = mockMvc.perform(patch("/article/updateQuantity")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -131,7 +131,7 @@ class ArticleRestControllerTest {
 
     @Test
     void ArticleRestController_UpdateQuantity_WhenQuantityIsNotPositive_ShouldReturnBadRequest() throws Exception {
-        UpdateQuantityRequestDto invalidRequest = new UpdateQuantityRequestDto(1L, -10);
+        UpdateQuantityRequest invalidRequest = new UpdateQuantityRequest(1L, -10);
 
         ResultActions response = mockMvc.perform(patch("/article/updateQuantity")
                 .contentType(MediaType.APPLICATION_JSON)

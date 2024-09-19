@@ -2,7 +2,7 @@ package com.emazon.stock.application.handler;
 
 import com.emazon.stock.application.dto.ArticleDtoRequest;
 import com.emazon.stock.application.dto.ArticleDtoResponse;
-import com.emazon.stock.application.dto.UpdateQuantityRequestDto;
+import com.emazon.stock.application.dto.UpdateQuantityRequest;
 import com.emazon.stock.application.mapper.ArticleDtoRequestMapper;
 import com.emazon.stock.application.mapper.ArticleDtoResponseMapper;
 import com.emazon.stock.application.mapper.PageDtoMapper;
@@ -56,8 +56,8 @@ public class ArticleHandler implements IArticleHandler{
     }
 
     @Override
-    public void updateQuantity(UpdateQuantityRequestDto updateQuantityRequestDto) {
-        this.articleServicePort.updateQuantity(updateQuantityRequestDto.getArticleId(),updateQuantityRequestDto.getQuantity());
+    public void updateQuantity(UpdateQuantityRequest updateQuantityRequest) {
+        this.articleServicePort.updateQuantity(updateQuantityRequest.getArticleId(),updateQuantityRequest.getQuantity());
     }
 
 }

@@ -2,7 +2,7 @@ package com.emazon.stock.infrastucture.input.rest;
 
 import com.emazon.stock.application.dto.ArticleDtoRequest;
 import com.emazon.stock.application.dto.ArticleDtoResponse;
-import com.emazon.stock.application.dto.UpdateQuantityRequestDto;
+import com.emazon.stock.application.dto.UpdateQuantityRequest;
 import com.emazon.stock.application.handler.IArticleHandler;
 import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.utils.Constants;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleRestController {
 
     private final IArticleHandler articleHandler;
-
 
     @Operation(summary = "Retrieve all Articles", description = "Returns a list of all Article available in the system.")
     @ApiResponses(value = {
@@ -61,8 +60,8 @@ public class ArticleRestController {
             @ApiResponse(responseCode = "400", description = "Bad request body")
     })
     @PatchMapping("/updateQuantity")
-    public ResponseEntity<Void> updateArticleQuantity(@Valid @RequestBody UpdateQuantityRequestDto updateQuantityRequestDto){
-        articleHandler.updateQuantity(updateQuantityRequestDto);
+    public ResponseEntity<Void> updateArticleQuantity(@Valid @RequestBody UpdateQuantityRequest updateQuantityRequest){
+        articleHandler.updateQuantity(updateQuantityRequest);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
