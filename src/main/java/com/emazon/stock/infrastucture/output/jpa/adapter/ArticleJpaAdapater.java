@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class ArticleJpaAdpater implements IArticlePersistencePort {
+public class ArticleJpaAdapater implements IArticlePersistencePort {
 
     private final IArticleRepository articleRepository;
     private final IBrandRepository brandRepository;
@@ -85,6 +85,24 @@ public class ArticleJpaAdpater implements IArticlePersistencePort {
 
             articleRepository.save(articleEntity);
         }
+    }
+
+    @Override
+    public Optional<Article> getArticleById(Long articleId) {
+        Optional<ArticleEntity> articleEntity = articleRepository.findById(articleId);
+        return articleEntity.map(articleEntityMapper::toArticle);
+    }
+
+
+    @Override
+    public List<Article> getArticlesByIds(List<Integer> articlesIds) {
+        List<Long> articleIdsLong = articlesIds.stream()
+                .map(Integer::longValue)
+                .toList();
+
+        List<ArticleEntity> articleEntities = articleRepository.findAllById(articleIdsLong);
+
+        return articleEntityMapper.toArticleList(articleEntities);
     }
 
 }

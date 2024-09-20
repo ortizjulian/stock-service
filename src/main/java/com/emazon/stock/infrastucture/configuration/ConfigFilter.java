@@ -28,13 +28,17 @@ public class ConfigFilter {
                         authorizeHttpRequests
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/swagger-ui/**","/v3/api-docs/**").permitAll()
+                                 //Article
                                 .requestMatchers(HttpMethod.POST,"/article/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
                                 .requestMatchers(HttpMethod.PATCH,"/article/updateQuantity").hasAuthority(SecurityConstants.ROLE_WAREHOUSE_ASSISTANT)
+                                .requestMatchers(HttpMethod.GET, "/article/**").permitAll()
+                                 //Category
+                                .requestMatchers(HttpMethod.POST,"/category/quantities").hasAuthority(SecurityConstants.ROLE_CLIENT)
                                 .requestMatchers(HttpMethod.POST,"/category/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
+                                .requestMatchers(HttpMethod.GET,"/category/**").permitAll()
+                                //Brand
                                 .requestMatchers(HttpMethod.POST,"/brand/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
-                                .requestMatchers("/article/**").permitAll()
-                                .requestMatchers("/category/**").permitAll()
-                                .requestMatchers("/brand/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/brand/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

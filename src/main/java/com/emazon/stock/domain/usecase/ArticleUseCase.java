@@ -13,6 +13,8 @@ import com.emazon.stock.domain.spi.IBrandPersistencePort;
 import com.emazon.stock.domain.spi.ICategoryPersistencePort;
 import com.emazon.stock.domain.utils.PaginationValidator;
 import com.emazon.stock.utils.Constants;
+
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -78,5 +80,14 @@ public class ArticleUseCase implements IArticleServicePort {
         }
 
         this.articlePersistencePort.updateQuantity(articleId,quantity);
+    }
+
+    @Override
+    public Article getArticleById(Long articleId) {
+        Optional<Article> articleOptional = articlePersistencePort.getArticleById(articleId);
+        if (articleOptional.isEmpty()) {
+            throw new ArticleNotFoundException(Constants.EXCEPTION_ARTICLE_NOT_FOUND_BY_ID +articleId);
+        }
+        return articleOptional.get();
     }
 }

@@ -2,7 +2,7 @@ package com.emazon.stock.application.handler;
 
 import com.emazon.stock.application.dto.ArticleDtoRequest;
 import com.emazon.stock.application.dto.ArticleDtoResponse;
-import com.emazon.stock.application.dto.UpdateQuantityRequestDto;
+import com.emazon.stock.application.dto.UpdateQuantityRequest;
 import com.emazon.stock.application.mapper.ArticleDtoRequestMapper;
 import com.emazon.stock.application.mapper.ArticleDtoResponseMapper;
 import com.emazon.stock.application.mapper.PageDtoMapper;
@@ -48,7 +48,6 @@ public class ArticleHandler implements IArticleHandler{
         this.articleServicePort.saveArticle(article);
 
     }
-
     @Override
     public PageCustom<ArticleDtoResponse> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName) {
         PageCustom<Article> articleList = this.articleServicePort.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName);
@@ -56,8 +55,13 @@ public class ArticleHandler implements IArticleHandler{
     }
 
     @Override
-    public void updateQuantity(UpdateQuantityRequestDto updateQuantityRequestDto) {
-        this.articleServicePort.updateQuantity(updateQuantityRequestDto.getArticleId(),updateQuantityRequestDto.getQuantity());
+    public void updateQuantity(UpdateQuantityRequest updateQuantityRequest) {
+        this.articleServicePort.updateQuantity(updateQuantityRequest.getArticleId(),updateQuantityRequest.getQuantity());
     }
 
+    @Override
+    public ArticleDtoResponse getArticleById(Long articleId) {
+        Article article = this.articleServicePort.getArticleById(articleId);
+        return articleDtoResponseMapper.toArticleDtoResponse(article);
+    }
 }

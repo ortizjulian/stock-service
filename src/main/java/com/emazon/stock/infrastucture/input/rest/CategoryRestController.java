@@ -2,6 +2,8 @@ package com.emazon.stock.infrastucture.input.rest;
 
 import com.emazon.stock.application.dto.CategoryDtoRequest;
 import com.emazon.stock.application.dto.CategoryDtoResponse;
+import com.emazon.stock.application.dto.CategoryQuantityRequest;
+import com.emazon.stock.application.dto.CategoryQuantityResponse;
 import com.emazon.stock.application.handler.ICategoryHandler;
 import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.utils.Constants;
@@ -14,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("category")
@@ -70,5 +74,19 @@ public class CategoryRestController {
         categoryHandler.deleteCategory(categoryId);
         return  ResponseEntity.noContent().build();
     }
+
+    @Operation(summary = "Get quantity of articles by category", description = "Returns the quantity of articles grouped by category based on a list of article IDs.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Quantities retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request body"),
+            @ApiResponse(responseCode = "404", description = "One or more articles not found")
+    })
+    @PostMapping("/quantities")
+    public ResponseEntity<List<CategoryQuantityResponse>> getCategoryQuantities(
+            @RequestBody CategoryQuantityRequest categoryQuantityRequest) {
+        List<CategoryQuantityResponse> categoryQuantities = categoryHandler.getCategoryQuantities(categoryQuantityRequest.getArticleIds());
+        return ResponseEntity.ok(categoryQuantities);
+    }
+
 
 }
