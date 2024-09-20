@@ -79,4 +79,12 @@ public class ArticleUseCase implements IArticleServicePort {
 
         this.articlePersistencePort.updateQuantity(articleId,quantity);
     }
+
+    @Override
+    public Article getArticleById(Long articleId) {
+        if (!articlePersistencePort.existById(articleId)) {
+            throw new ArticleNotFoundException(Constants.EXCEPTION_ARTICLE_NOT_FOUND_BY_ID +articleId);
+        }
+        return articlePersistencePort.getArticleById(articleId);
+    }
 }

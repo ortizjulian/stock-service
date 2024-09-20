@@ -2,6 +2,7 @@ package com.emazon.stock.application.handler;
 
 import com.emazon.stock.application.dto.CategoryDtoRequest;
 import com.emazon.stock.application.dto.CategoryDtoResponse;
+import com.emazon.stock.application.dto.CategoryQuantityResponse;
 import com.emazon.stock.application.mapper.CategoryDtoRequestMapper;
 import com.emazon.stock.application.mapper.PageDtoMapper;
 import com.emazon.stock.domain.api.ICategoryServicePort;
@@ -10,6 +11,9 @@ import com.emazon.stock.domain.model.PageCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -40,5 +44,13 @@ public class CategoryHandler implements ICategoryHandler{
     @Override
     public void deleteCategory(Long categoryId) {
         categoryServicePort.deleteCategory(categoryId);
+    }
+
+    @Override
+    public List<CategoryQuantityResponse> getCategoryQuantities(List<Integer> articlesIds) {
+        Map<String, Long> categoryCounts = categoryServicePort.getCategoryQuantities(articlesIds);
+        return categoryCounts.entrySet().stream()
+                .map(entry -> new CategoryQuantityResponse(entry.getKey(), entry.getValue()))
+                .toList();
     }
 }

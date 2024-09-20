@@ -9,4 +9,5 @@ public interface IArticleHandler {
         void saveArticle(ArticleDtoRequest articleDtoRequest);
         PageCustom<ArticleDtoResponse> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName);
         void updateQuantity(UpdateQuantityRequest updateQuantityRequest);
+        ArticleDtoResponse getArticleById(Long articleId);
 }

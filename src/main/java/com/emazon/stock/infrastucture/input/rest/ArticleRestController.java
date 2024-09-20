@@ -64,4 +64,16 @@ public class ArticleRestController {
         articleHandler.updateQuantity(updateQuantityRequest);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @Operation(summary = "Check Article Stock", description = "Retrieve the stock quantity of a specific article.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Stock retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "Article not found with the given id")
+    })
+    @GetMapping("/{articleId}")
+    public ResponseEntity<ArticleDtoResponse> checkArticleStock(@PathVariable Long articleId) {
+        ArticleDtoResponse articleDtoResponse = articleHandler.getArticleById(articleId);
+        return ResponseEntity.ok(articleDtoResponse);
+    }
+
 }

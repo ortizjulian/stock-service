@@ -48,7 +48,6 @@ public class ArticleHandler implements IArticleHandler{
         this.articleServicePort.saveArticle(article);
 
     }
-
     @Override
     public PageCustom<ArticleDtoResponse> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName) {
         PageCustom<Article> articleList = this.articleServicePort.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName);
@@ -60,4 +59,9 @@ public class ArticleHandler implements IArticleHandler{
         this.articleServicePort.updateQuantity(updateQuantityRequest.getArticleId(),updateQuantityRequest.getQuantity());
     }
 
+    @Override
+    public ArticleDtoResponse getArticleById(Long articleId) {
+        Article article = this.articleServicePort.getArticleById(articleId);
+        return articleDtoResponseMapper.toArticleDtoResponse(article);
+    }
 }

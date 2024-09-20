@@ -9,7 +9,7 @@ import com.emazon.stock.domain.spi.ICategoryPersistencePort;
 import com.emazon.stock.domain.usecase.ArticleUseCase;
 import com.emazon.stock.domain.usecase.BrandUseCase;
 import com.emazon.stock.domain.usecase.CategoryUseCase;
-import com.emazon.stock.infrastucture.output.jpa.adapter.ArticleJpaAdpater;
+import com.emazon.stock.infrastucture.output.jpa.adapter.ArticleJpaAdapater;
 import com.emazon.stock.infrastucture.output.jpa.adapter.BrandJpaAdapter;
 import com.emazon.stock.infrastucture.output.jpa.adapter.CategoryJpaAdapter;
 import com.emazon.stock.infrastucture.output.jpa.mapper.ArticleEntityMapper;
@@ -40,7 +40,7 @@ public class BeanConfiguration {
 
     @Bean
     public IArticlePersistencePort articlePersistencePort(){
-        return new ArticleJpaAdpater(articleRepository,brandRepository,categoryRepository, articleEntityMapper, pageMapper);
+        return new ArticleJpaAdapater(articleRepository,brandRepository,categoryRepository, articleEntityMapper, pageMapper);
     }
 
     @Bean
@@ -65,7 +65,7 @@ public class BeanConfiguration {
 
     @Bean
     public ICategoryServicePort categoryServicePort(){
-        return new CategoryUseCase(categoryPersistencePort());
+        return new CategoryUseCase(categoryPersistencePort(), articlePersistencePort());
     }
 
 }
