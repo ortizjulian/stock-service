@@ -14,6 +14,7 @@ import com.emazon.stock.domain.spi.ICategoryPersistencePort;
 import com.emazon.stock.domain.utils.PaginationValidator;
 import com.emazon.stock.utils.Constants;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -58,7 +59,7 @@ public class ArticleUseCase implements IArticleServicePort {
     }
 
     @Override
-    public PageCustom<Article> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName) {
+    public PageCustom<Article> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName, List<Long> articleIds) {
 
         PaginationValidator.validatePagination(page,size,sortDirection);
 
@@ -70,7 +71,7 @@ public class ArticleUseCase implements IArticleServicePort {
         if (categoryName != null && !categoryName.isBlank() && !categoryPersistencePort.existsByName(categoryName)) {
             throw new CategoryNotFoundException(Constants.EXCEPTION_CATEGORY_NOT_FOUND_BY_NAME + categoryName);
         }
-        return this.articlePersistencePort.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName);
+        return this.articlePersistencePort.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName,articleIds);
     }
 
     @Override

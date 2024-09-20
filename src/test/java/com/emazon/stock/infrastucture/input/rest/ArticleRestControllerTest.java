@@ -96,7 +96,7 @@ class ArticleRestControllerTest {
         PageCustom<ArticleDtoResponse> articleDtoResponsePageCustom = new PageCustom<>();
         articleDtoResponsePageCustom.setContent(articles);
 
-        Mockito.when(articleHandler.getAllArticles(0,10,"ASC","name", "", "")).thenReturn(articleDtoResponsePageCustom);
+        Mockito.when(articleHandler.getAllArticles(0,10,"ASC","name", "", "", articleIds)).thenReturn(articleDtoResponsePageCustom);
 
         ResultActions response = mockMvc.perform(get("/article")
                 .contentType(MediaType.APPLICATION_JSON));

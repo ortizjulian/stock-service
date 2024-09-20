@@ -27,6 +27,7 @@ public class Constants {
     public static final String DEFAULT_CATEGORY_NAME = "";
 
     // Pagination defaults
+    public static final Integer PAGINATION_ZERO = 0;
     public static final String DEFAULT_PAGE = "0";
     public static final String DEFAULT_SIZE = "10";
     public static final String DEFAULT_SORT_DIRECTION = "ASC";
@@ -34,6 +35,9 @@ public class Constants {
     public static final String SORT_DIRECTION_ASC = "ASC";
     public static final String SORT_DIRECTION_DESC = "DESC";
 
+    //Article Spec
+    public static final String ARTICLE_ID = "id";
+    public static final String ARTICLE_NAME = "name";
     //Exceptions messages
     public static final String RESPONSE_MESSAGE_KEY = "Message";
     //CategoryExceptions

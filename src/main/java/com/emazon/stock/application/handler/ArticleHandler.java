@@ -49,8 +49,8 @@ public class ArticleHandler implements IArticleHandler{
 
     }
     @Override
-    public PageCustom<ArticleDtoResponse> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName) {
-        PageCustom<Article> articleList = this.articleServicePort.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName);
+    public PageCustom<ArticleDtoResponse> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName, List<Long> articleIds) {
+        PageCustom<Article> articleList = this.articleServicePort.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName,articleIds);
         return pageDtoMapper.toArticleDtoPageCustom(articleList);
     }
 

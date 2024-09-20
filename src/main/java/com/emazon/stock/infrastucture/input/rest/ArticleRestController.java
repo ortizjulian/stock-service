@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("article")
 @RequiredArgsConstructor
@@ -35,10 +37,10 @@ public class ArticleRestController {
             @RequestParam(defaultValue = Constants.DEFAULT_SORT_DIRECTION) String sortDirection,
             @RequestParam(defaultValue = Constants.DEFAULT_SORT_BY) String sortBy,
             @RequestParam(defaultValue = Constants.DEFAULT_BRAND_NAME) String brandName,
-            @RequestParam(defaultValue = Constants.DEFAULT_CATEGORY_NAME) String categoryName
-
+            @RequestParam(defaultValue = Constants.DEFAULT_CATEGORY_NAME) String categoryName,
+            @RequestParam(required = false) List<Long> articleIds
     ){
-        return ResponseEntity.ok(articleHandler.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName));
+        return ResponseEntity.ok(articleHandler.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName,articleIds));
     }
 
     @Operation(summary = "Create a new Article", description = "Adds a new Article to the system.")

@@ -104,14 +104,14 @@ class ArticleUseCaseTest {
         PageCustom<Article> articlePageCustom = new PageCustom<>();
         articlePageCustom.setContent(mockArticles);
 
-        Mockito.when(articlePersistencePort.getAllArticles(0,10,"ASC","name", "", "")).thenReturn(articlePageCustom);
+        Mockito.when(articlePersistencePort.getAllArticles(0,10,"ASC","name", "", "", articleIds)).thenReturn(articlePageCustom);
 
 
-        PageCustom<Article> articles = articleUseCase.getAllArticles(0,10,"ASC","name", "", "");
+        PageCustom<Article> articles = articleUseCase.getAllArticles(0,10,"ASC","name", "", "", articleIds);
 
         assertEquals(mockArticles, articles.getContent());
 
-        Mockito.verify(articlePersistencePort, Mockito.times(1)).getAllArticles(0,10,"ASC","name", "", "");
+        Mockito.verify(articlePersistencePort, Mockito.times(1)).getAllArticles(0,10,"ASC","name", "", "", articleIds);
     }
 
     @Test
