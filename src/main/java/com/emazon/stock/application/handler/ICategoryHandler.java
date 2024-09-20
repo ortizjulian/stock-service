@@ -2,7 +2,6 @@ package com.emazon.stock.application.handler;
 
 import com.emazon.stock.application.dto.CategoryDtoRequest;
 import com.emazon.stock.application.dto.CategoryDtoResponse;
-import com.emazon.stock.application.dto.CategoryQuantityRequest;
 import com.emazon.stock.application.dto.CategoryQuantityResponse;
 import com.emazon.stock.domain.model.PageCustom;
 

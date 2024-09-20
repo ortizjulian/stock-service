@@ -1,6 +1,5 @@
 package com.emazon.stock.domain.usecase;
 
-import com.emazon.stock.domain.api.IArticleServicePort;
 import com.emazon.stock.domain.api.ICategoryServicePort;
 import com.emazon.stock.domain.exception.CategoryAlreadyExistsException;
 import com.emazon.stock.domain.exception.CategoryNotFoundException;

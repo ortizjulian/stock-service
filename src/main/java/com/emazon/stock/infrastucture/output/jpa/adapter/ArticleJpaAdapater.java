@@ -20,7 +20,6 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class ArticleJpaAdapater implements IArticlePersistencePort {
@@ -89,10 +88,11 @@ public class ArticleJpaAdapater implements IArticlePersistencePort {
     }
 
     @Override
-    public Article getArticleById(Long articleId) {
-        ArticleEntity articleEntity = articleRepository.findById(articleId).get();
-        return articleEntityMapper.toArticle(articleEntity);
+    public Optional<Article> getArticleById(Long articleId) {
+        Optional<ArticleEntity> articleEntity = articleRepository.findById(articleId);
+        return articleEntity.map(articleEntityMapper::toArticle);
     }
+
 
     @Override
     public List<Article> getArticlesByIds(List<Integer> articlesIds) {

@@ -1,8 +1,11 @@
 package com.emazon.stock.domain.usecase;
 
 import com.emazon.stock.domain.exception.PaginationParametersInvalidException;
+import com.emazon.stock.domain.model.Article;
+import com.emazon.stock.domain.model.Brand;
 import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.domain.model.PageCustom;
+import com.emazon.stock.domain.spi.IArticlePersistencePort;
 import com.emazon.stock.domain.spi.ICategoryPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,15 +18,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryUseCaseTest {
 
-
     @Mock
     private  ICategoryPersistencePort categoryPersistencePort;
+
+    @Mock
+    private IArticlePersistencePort articlePersistencePort;
 
     @InjectMocks
     private CategoryUseCase categoryUseCase;
@@ -86,5 +92,29 @@ class CategoryUseCaseTest {
         assertEquals("Vehículo", result.getContent().get(2).getName());
 
         Mockito.verify(categoryPersistencePort).getAllCategories(page, size, sortDirection, sortBy);
+    }
+
+    @Test
+    void CategoryUseCase_GetCategoryQuantities_ShouldReturnCorrectCategoryCounts() {
+
+        List<Integer> articleIds = List.of(1);
+        Article article1 = new Article(1L,"Iphone","El 16",10,2000f,new Brand(), List.of(
+                new Category(1L, "IPHONE", "Celulares Iphone"),
+                new Category(2L, "Tecnología", "Tecnología")));
+
+        List<Article> articles = List.of(
+                article1
+        );
+
+        Mockito.when(articlePersistencePort.getArticlesByIds(articleIds))
+                .thenReturn(articles);
+
+        Map<String, Long> categoryQuantities = categoryUseCase.getCategoryQuantities(articleIds);
+
+        assertNotNull(categoryQuantities);
+        assertEquals(1L, categoryQuantities.get("IPHONE"));
+        assertEquals(1L, categoryQuantities.get("Tecnología"));
+
+        Mockito.verify(articlePersistencePort).getArticlesByIds(articleIds);
     }
 }
