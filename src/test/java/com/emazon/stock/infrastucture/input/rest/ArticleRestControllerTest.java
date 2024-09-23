@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -96,7 +97,7 @@ class ArticleRestControllerTest {
         PageCustom<ArticleDtoResponse> articleDtoResponsePageCustom = new PageCustom<>();
         articleDtoResponsePageCustom.setContent(articles);
 
-        Mockito.when(articleHandler.getAllArticles(0,10,"ASC","name", "", "")).thenReturn(articleDtoResponsePageCustom);
+        Mockito.when(articleHandler.getAllArticles(0,10,"ASC","name", "", "", null)).thenReturn(articleDtoResponsePageCustom);
 
         ResultActions response = mockMvc.perform(get("/article")
                 .contentType(MediaType.APPLICATION_JSON));
@@ -139,5 +140,4 @@ class ArticleRestControllerTest {
 
         response.andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
-
 }

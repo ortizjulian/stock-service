@@ -12,5 +12,5 @@ public interface ICategoryServicePort {
     PageCustom<Category> getAllCategories(Integer page, Integer size, String sortDirection, String sortBy);
     void updateCategory(Long categoryId,Category category);
     void deleteCategory(Long categoryId);
-    Map<String, Long> getCategoryQuantities(List<Integer> articlesIds);
+    Map<String, Long> getCategoryQuantities(List<Long> articlesIds);
 }

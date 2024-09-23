@@ -29,6 +29,7 @@ public class ConfigFilter {
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/swagger-ui/**","/v3/api-docs/**").permitAll()
                                  //Article
+                                .requestMatchers(HttpMethod.POST,"/article/price").hasAuthority(SecurityConstants.ROLE_CLIENT)
                                 .requestMatchers(HttpMethod.POST,"/article/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
                                 .requestMatchers(HttpMethod.PATCH,"/article/updateQuantity").hasAuthority(SecurityConstants.ROLE_WAREHOUSE_ASSISTANT)
                                 .requestMatchers(HttpMethod.GET, "/article/**").permitAll()

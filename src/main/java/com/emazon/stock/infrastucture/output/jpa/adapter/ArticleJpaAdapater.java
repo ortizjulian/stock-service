@@ -11,6 +11,7 @@ import com.emazon.stock.infrastucture.output.jpa.mapper.PageMapper;
 import com.emazon.stock.infrastucture.output.jpa.repository.IArticleRepository;
 import com.emazon.stock.infrastucture.output.jpa.repository.IBrandRepository;
 import com.emazon.stock.infrastucture.output.jpa.repository.ICategoryRepository;
+import com.emazon.stock.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,7 +38,7 @@ public class ArticleJpaAdapater implements IArticlePersistencePort {
 
         List<CategoryEntity> categoryEntities = article.getCategories().stream()
                 .map(category -> categoryRepository.findById(category.getId())
-                        .orElseThrow(() -> new IllegalArgumentException("Category with ID " + category.getId() + " not found")))
+                        .orElseThrow(IllegalArgumentException::new))
                 .toList();
 
         if (optionalBrandEntity.isPresent()){
@@ -53,7 +54,7 @@ public class ArticleJpaAdapater implements IArticlePersistencePort {
     }
 
     @Override
-    public PageCustom<Article> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName) {
+    public PageCustom<Article> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName, List<Long> articleIds) {
 
         Sort.Direction direction = Sort.Direction.fromString(sortDirection);
         Sort sort = Sort.by(direction, sortBy);
@@ -63,15 +64,25 @@ public class ArticleJpaAdapater implements IArticlePersistencePort {
 
         if (brandName != null && !brandName.isEmpty()) {
             spec = spec.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.equal(root.get("brandEntity").get("name"), brandName));
+                    criteriaBuilder.equal(root.get(Constants.BRAND_ENTITY).get(Constants.ARTICLE_NAME), brandName));
         }
 
         if (categoryName != null && !categoryName.isEmpty()) {
             spec = spec.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.equal(root.join("articleCategories").get("name"), categoryName));
+                    criteriaBuilder.equal(root.join(Constants.ARTICLE_CATEGORIES).get(Constants.ARTICLE_NAME), categoryName));
         }
+        Page<ArticleEntity> articlePage;
 
-        Page<ArticleEntity> articlePage = articleRepository.findAll(spec, pageable);
+        if (articleIds == null || articleIds.isEmpty()) {
+            articlePage = articleRepository.findAll(spec, pageable);
+        } else {
+            Specification<ArticleEntity> idSpec = (root, query, criteriaBuilder) ->
+                    root.get(Constants.ARTICLE_ID).in(articleIds);
+
+            spec = spec.and(idSpec);
+
+            articlePage = articleRepository.findAll(spec, pageable);
+        }
 
         return pageMapper.toArticlePageCustom(articlePage);
     }
@@ -95,10 +106,8 @@ public class ArticleJpaAdapater implements IArticlePersistencePort {
 
 
     @Override
-    public List<Article> getArticlesByIds(List<Integer> articlesIds) {
-        List<Long> articleIdsLong = articlesIds.stream()
-                .map(Integer::longValue)
-                .toList();
+    public List<Article> getArticlesByIds(List<Long> articlesIds) {
+        List<Long> articleIdsLong = articlesIds.stream().toList();
 
         List<ArticleEntity> articleEntities = articleRepository.findAllById(articleIdsLong);
 

@@ -1,8 +1,6 @@
 package com.emazon.stock.infrastucture.input.rest;
 
-import com.emazon.stock.application.dto.ArticleDtoRequest;
-import com.emazon.stock.application.dto.ArticleDtoResponse;
-import com.emazon.stock.application.dto.UpdateQuantityRequest;
+import com.emazon.stock.application.dto.*;
 import com.emazon.stock.application.handler.IArticleHandler;
 import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.utils.Constants;
@@ -15,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("article")
@@ -35,10 +35,10 @@ public class ArticleRestController {
             @RequestParam(defaultValue = Constants.DEFAULT_SORT_DIRECTION) String sortDirection,
             @RequestParam(defaultValue = Constants.DEFAULT_SORT_BY) String sortBy,
             @RequestParam(defaultValue = Constants.DEFAULT_BRAND_NAME) String brandName,
-            @RequestParam(defaultValue = Constants.DEFAULT_CATEGORY_NAME) String categoryName
-
+            @RequestParam(defaultValue = Constants.DEFAULT_CATEGORY_NAME) String categoryName,
+            @RequestParam(required = false) List<Long> articleIds
     ){
-        return ResponseEntity.ok(articleHandler.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName));
+        return ResponseEntity.ok(articleHandler.getAllArticles(page,size,sortDirection,sortBy,brandName,categoryName,articleIds));
     }
 
     @Operation(summary = "Create a new Article", description = "Adds a new Article to the system.")
@@ -76,4 +76,19 @@ public class ArticleRestController {
         return ResponseEntity.ok(articleDtoResponse);
     }
 
+    @Operation(
+            summary = "Retrieve total price by article IDs",
+            description = "Calculates and returns the total price for a list of articles based on their IDs."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Total price calculated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request body. Please ensure the article list is provided."),
+            @ApiResponse(responseCode = "404", description = "One or more articles not found. Please verify the article IDs.")
+    })
+    @PostMapping("/price")
+    public ResponseEntity<PriceDto> getTotalPriceByArticleIds(
+            @RequestBody ArticleListRequest articleListRequest) {
+        PriceDto price = articleHandler.getTotalPriceByArticleIds(articleListRequest.getArticleIds());
+        return ResponseEntity.ok(price);
+    }
 }

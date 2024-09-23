@@ -58,7 +58,7 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
     @Override
-    public Map<String, Long> getCategoryQuantities(List<Integer> articlesIds) {
+    public Map<String, Long> getCategoryQuantities(List<Long> articlesIds) {
 
         List<Article> articles = articlePersistencePort.getArticlesByIds(articlesIds);
 

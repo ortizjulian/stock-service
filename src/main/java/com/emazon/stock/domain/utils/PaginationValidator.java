@@ -10,10 +10,10 @@ public class PaginationValidator {
     }
 
     public static void validatePagination(Integer page, Integer size, String sortDirection) {
-        if (page < 0) {
+        if (page < Constants.PAGINATION_ZERO) {
             throw new PaginationParametersInvalidException(Constants.EXCEPTION_PAGE_NUMBER_NEGATIVE);
         }
-        if (size < 0) {
+        if (size < Constants.PAGINATION_ZERO) {
             throw new PaginationParametersInvalidException(Constants.EXCEPTION_PAGE_SIZE_NEGATIVE);
         }
         if (sortDirection == null || sortDirection.isEmpty() ||
