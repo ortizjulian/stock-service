@@ -9,6 +9,7 @@ public class Constants {
 
     public static final String MAPPER_STRING = "spring";
 
+    public static final Double ZERO = 0D;
     public static final int MIN_CHARACTERS_NAME_CATEGORY = 1;
     public static final int MAX_CHARACTERS_NAME_CATEGORY = 50;
     public static final int MIN_CHARACTERS_DESCRIPTION_CATEGORY = 1;
@@ -58,6 +59,7 @@ public class Constants {
     public static final String EXCEPTION_BRAND_NOT_FOUND_BY_ID = "Brand not found with ID: ";
     //ArticleExceptions
     public static final String EXCEPTION_ARTICLE_ID_NULL = "Article ID cannot be null";
+    public static final String EXCEPTION_ARTICLES_NOT_FOUND =  "The following article IDs were not found: ";
     public static final String EXCEPTION_ARTICLE_QUANTITY_NULL = "Quantity cannot be null";
     public static final String EXCEPTION_ARTICLE_QUANTITY_POSITIVE = "Quantity must be a positive number";
     public static final String EXCEPTION_ARTICLE_NAME_BLANK = "The article name cannot be blank";

@@ -97,7 +97,7 @@ class CategoryUseCaseTest {
     @Test
     void CategoryUseCase_GetCategoryQuantities_ShouldReturnCorrectCategoryCounts() {
 
-        List<Integer> articleIds = List.of(1);
+        List<Long> articleIds = List.of(1L);
         Article article1 = new Article(1L,"Iphone","El 16",10,2000f,new Brand(), List.of(
                 new Category(1L, "IPHONE", "Celulares Iphone"),
                 new Category(2L, "Tecnología", "Tecnología")));

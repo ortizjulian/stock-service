@@ -47,7 +47,7 @@ public class CategoryHandler implements ICategoryHandler{
     }
 
     @Override
-    public List<CategoryQuantityResponse> getCategoryQuantities(List<Integer> articlesIds) {
+    public List<CategoryQuantityResponse> getCategoryQuantities(List<Long> articlesIds) {
         Map<String, Long> categoryCounts = categoryServicePort.getCategoryQuantities(articlesIds);
         return categoryCounts.entrySet().stream()
                 .map(entry -> new CategoryQuantityResponse(entry.getKey(), entry.getValue()))

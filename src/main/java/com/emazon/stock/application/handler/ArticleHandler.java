@@ -2,6 +2,7 @@ package com.emazon.stock.application.handler;
 
 import com.emazon.stock.application.dto.ArticleDtoRequest;
 import com.emazon.stock.application.dto.ArticleDtoResponse;
+import com.emazon.stock.application.dto.PriceDto;
 import com.emazon.stock.application.dto.UpdateQuantityRequest;
 import com.emazon.stock.application.mapper.ArticleDtoRequestMapper;
 import com.emazon.stock.application.mapper.ArticleDtoResponseMapper;
@@ -63,5 +64,11 @@ public class ArticleHandler implements IArticleHandler{
     public ArticleDtoResponse getArticleById(Long articleId) {
         Article article = this.articleServicePort.getArticleById(articleId);
         return articleDtoResponseMapper.toArticleDtoResponse(article);
+    }
+
+    @Override
+    public PriceDto getTotalPriceByArticleIds(List<Long> articleIds) {
+        Double totalPrice = articleServicePort.getTotalPriceByArticleIds(articleIds);
+        return new PriceDto(totalPrice);
     }
 }

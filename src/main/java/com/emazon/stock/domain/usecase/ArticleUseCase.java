@@ -91,4 +91,29 @@ public class ArticleUseCase implements IArticleServicePort {
         }
         return articleOptional.get();
     }
+
+    @Override
+    public Double getTotalPriceByArticleIds(List<Long> articleIds) {
+        List<Article> articles = articlePersistencePort.getArticlesByIds(articleIds);
+
+        List<Long> foundIds = articles.stream()
+                .map(Article::getId)
+                .toList();
+
+        List<Long> missingIds = articleIds.stream()
+                .filter(id -> !foundIds.contains(id))
+                .toList();
+
+        if (!missingIds.isEmpty()) {
+            throw new ArticleNotFoundException(Constants.EXCEPTION_ARTICLES_NOT_FOUND + missingIds);
+        }
+
+        Double totalPrice = Constants.ZERO;
+        for (Article article : articles) {
+            totalPrice += article.getPrice();
+        }
+
+        return totalPrice;
+    }
+
 }

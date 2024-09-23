@@ -106,10 +106,8 @@ public class ArticleJpaAdapater implements IArticlePersistencePort {
 
 
     @Override
-    public List<Article> getArticlesByIds(List<Integer> articlesIds) {
-        List<Long> articleIdsLong = articlesIds.stream()
-                .map(Integer::longValue)
-                .toList();
+    public List<Article> getArticlesByIds(List<Long> articlesIds) {
+        List<Long> articleIdsLong = articlesIds.stream().toList();
 
         List<ArticleEntity> articleEntities = articleRepository.findAllById(articleIdsLong);
 

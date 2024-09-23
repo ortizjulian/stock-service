@@ -1,8 +1,6 @@
 package com.emazon.stock.infrastucture.input.rest;
 
-import com.emazon.stock.application.dto.ArticleDtoRequest;
-import com.emazon.stock.application.dto.ArticleDtoResponse;
-import com.emazon.stock.application.dto.UpdateQuantityRequest;
+import com.emazon.stock.application.dto.*;
 import com.emazon.stock.application.handler.IArticleHandler;
 import com.emazon.stock.domain.model.PageCustom;
 import com.emazon.stock.utils.Constants;
@@ -78,4 +76,19 @@ public class ArticleRestController {
         return ResponseEntity.ok(articleDtoResponse);
     }
 
+    @Operation(
+            summary = "Retrieve total price by article IDs",
+            description = "Calculates and returns the total price for a list of articles based on their IDs."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Total price calculated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request body. Please ensure the article list is provided."),
+            @ApiResponse(responseCode = "404", description = "One or more articles not found. Please verify the article IDs.")
+    })
+    @PostMapping("/price")
+    public ResponseEntity<PriceDto> getTotalPriceByArticleIds(
+            @RequestBody ArticleListRequest articleListRequest) {
+        PriceDto price = articleHandler.getTotalPriceByArticleIds(articleListRequest.getArticleIds());
+        return ResponseEntity.ok(price);
+    }
 }

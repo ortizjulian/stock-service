@@ -12,5 +12,5 @@ public interface IArticlePersistencePort {
     PageCustom<Article> getAllArticles(Integer page, Integer size, String sortDirection, String sortBy, String brandName, String categoryName, List<Long> articleIds);
     void updateQuantity(Long articleId, Integer quantity);
     Optional<Article> getArticleById(Long articleId);
-    List<Article> getArticlesByIds(List<Integer> articlesIds);
+    List<Article> getArticlesByIds(List<Long> articlesIds);
 }

@@ -12,5 +12,5 @@ public interface ICategoryHandler {
     PageCustom<CategoryDtoResponse> getAllCategories(Integer page, Integer size, String sortDirection, String sortBy);
     void updateCategory(Long categoryId,CategoryDtoRequest categoryDto);
     void deleteCategory(Long categoryId);
-    List<CategoryQuantityResponse> getCategoryQuantities(List<Integer> articlesIds);
+    List<CategoryQuantityResponse> getCategoryQuantities(List<Long> articlesIds);
 }

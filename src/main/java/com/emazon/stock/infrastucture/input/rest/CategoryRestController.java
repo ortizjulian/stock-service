@@ -1,8 +1,8 @@
 package com.emazon.stock.infrastucture.input.rest;
 
+import com.emazon.stock.application.dto.ArticleListRequest;
 import com.emazon.stock.application.dto.CategoryDtoRequest;
 import com.emazon.stock.application.dto.CategoryDtoResponse;
-import com.emazon.stock.application.dto.CategoryQuantityRequest;
 import com.emazon.stock.application.dto.CategoryQuantityResponse;
 import com.emazon.stock.application.handler.ICategoryHandler;
 import com.emazon.stock.domain.model.PageCustom;
@@ -83,8 +83,8 @@ public class CategoryRestController {
     })
     @PostMapping("/quantities")
     public ResponseEntity<List<CategoryQuantityResponse>> getCategoryQuantities(
-            @RequestBody CategoryQuantityRequest categoryQuantityRequest) {
-        List<CategoryQuantityResponse> categoryQuantities = categoryHandler.getCategoryQuantities(categoryQuantityRequest.getArticleIds());
+            @RequestBody ArticleListRequest articleListRequest) {
+        List<CategoryQuantityResponse> categoryQuantities = categoryHandler.getCategoryQuantities(articleListRequest.getArticleIds());
         return ResponseEntity.ok(categoryQuantities);
     }
 
