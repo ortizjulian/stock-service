@@ -94,6 +94,10 @@ public class ArticleUseCase implements IArticleServicePort {
 
     @Override
     public Double getTotalPriceByArticleIds(List<Long> articleIds) {
+        if(articleIds.isEmpty()) {
+            return Constants.ZERO;
+        }
+
         List<Article> articles = articlePersistencePort.getArticlesByIds(articleIds);
 
         List<Long> foundIds = articles.stream()

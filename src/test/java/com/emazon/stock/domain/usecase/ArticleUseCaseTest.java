@@ -19,7 +19,9 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -104,14 +106,14 @@ class ArticleUseCaseTest {
         PageCustom<Article> articlePageCustom = new PageCustom<>();
         articlePageCustom.setContent(mockArticles);
 
-        Mockito.when(articlePersistencePort.getAllArticles(0,10,"ASC","name", "", "", articleIds)).thenReturn(articlePageCustom);
+        Mockito.when(articlePersistencePort.getAllArticles(0,10,"ASC","name", "", "", Collections.emptyList())).thenReturn(articlePageCustom);
 
 
-        PageCustom<Article> articles = articleUseCase.getAllArticles(0,10,"ASC","name", "", "", articleIds);
+        PageCustom<Article> articles = articleUseCase.getAllArticles(0,10,"ASC","name", "", "", Collections.emptyList());
 
         assertEquals(mockArticles, articles.getContent());
 
-        Mockito.verify(articlePersistencePort, Mockito.times(1)).getAllArticles(0,10,"ASC","name", "", "", articleIds);
+        Mockito.verify(articlePersistencePort, Mockito.times(1)).getAllArticles(0,10,"ASC","name", "", "", Collections.emptyList());
     }
 
     @Test
@@ -138,6 +140,75 @@ class ArticleUseCaseTest {
         });
 
         Mockito.verify(articlePersistencePort, Mockito.never()).updateQuantity(Mockito.anyLong(), Mockito.anyInt());
+    }
+
+    @Test
+    void ArticleUseCase_GetArticleById_WhenArticleExists_ShouldReturnArticle() {
+        Long articleId = 1L;
+        Article mockArticle = new Article(articleId, "Camisa", "Camisa grande", 100, 1000.0F, new Brand(1L, "Mattelsa", "Marca colombiana"), Arrays.asList(new Category(1L, "Ropa", "Ropa y accesorios")));
+
+        Mockito.when(articlePersistencePort.getArticleById(articleId)).thenReturn(Optional.of(mockArticle));
+
+        Article article = articleUseCase.getArticleById(articleId);
+
+        assertEquals(mockArticle, article);
+        Mockito.verify(articlePersistencePort, Mockito.times(1)).getArticleById(articleId);
+    }
+
+    @Test
+    void ArticleUseCase_GetArticleById_WhenArticleDoesNotExist_ShouldThrowArticleNotFoundException() {
+        Long articleId = 1L;
+
+        Mockito.when(articlePersistencePort.getArticleById(articleId)).thenReturn(Optional.empty());
+
+        assertThrows(ArticleNotFoundException.class, () -> {
+            articleUseCase.getArticleById(articleId);
+        });
+
+        Mockito.verify(articlePersistencePort, Mockito.times(1)).getArticleById(articleId);
+    }
+
+    @Test
+    void ArticleUseCase_GetTotalPriceByArticleIds_WhenAllArticlesExist_ShouldReturnTotalPrice() {
+        List<Long> articleIds = Arrays.asList(1L, 2L);
+        List<Article> mockArticles = Arrays.asList(
+                new Article(1L, "Camisa", "Camisa grande", 100, 1000.0F, new Brand(1L, "Mattelsa", "Marca colombiana"), Arrays.asList(new Category(1L, "Ropa", "Ropa y accesorios"))),
+                new Article(2L, "Pantalón", "Pantalón azul", 80, 800.0F, new Brand(2L, "Levis", "Marca internacional"), Arrays.asList(new Category(2L, "Moda", "Moda y estilo")))
+        );
+
+        Mockito.when(articlePersistencePort.getArticlesByIds(articleIds)).thenReturn(mockArticles);
+
+        Double totalPrice = articleUseCase.getTotalPriceByArticleIds(articleIds);
+
+        assertEquals(1800.0, totalPrice);
+        Mockito.verify(articlePersistencePort, Mockito.times(1)).getArticlesByIds(articleIds);
+    }
+
+    @Test
+    void ArticleUseCase_GetTotalPriceByArticleIds_WhenSomeArticlesDoNotExist_ShouldThrowArticleNotFoundException() {
+        List<Long> articleIds = Arrays.asList(1L, 2L);
+        List<Article> mockArticles = Collections.singletonList(
+                new Article(1L, "Camisa", "Camisa grande", 100, 1000.0F, new Brand(1L, "Mattelsa", "Marca colombiana"), Arrays.asList(new Category(1L, "Ropa", "Ropa y accesorios")))
+        );
+
+        Mockito.when(articlePersistencePort.getArticlesByIds(articleIds)).thenReturn(mockArticles);
+
+        assertThrows(ArticleNotFoundException.class, () -> {
+            articleUseCase.getTotalPriceByArticleIds(articleIds);
+        });
+
+        Mockito.verify(articlePersistencePort, Mockito.times(1)).getArticlesByIds(articleIds);
+    }
+
+    @Test
+    void ArticleUseCase_GetTotalPriceByArticleIds_WhenNoArticlesProvided_ShouldReturnZero() {
+        List<Long> articleIds = Collections.emptyList();
+
+        Double totalPrice = articleUseCase.getTotalPriceByArticleIds(articleIds);
+
+        assertEquals(0.0, totalPrice);
+
+        Mockito.verify(articlePersistencePort, Mockito.never()).getArticlesByIds(articleIds);
     }
 
 }
