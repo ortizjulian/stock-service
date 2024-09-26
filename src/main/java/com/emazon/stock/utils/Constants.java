@@ -71,6 +71,7 @@ public class Constants {
     public static final String EXCEPTION_ARTICLE_CATEGORIES_SIZE = "At least one and at most three categories must be assigned";
     public static final String EXCEPTION_DUPLICATE_CATEGORIES = "Duplicate categories found in the article.";
     public static final String EXCEPTION_ARTICLE_NOT_FOUND_BY_ID = "Article not found with ID: ";
+    public static final String EXCEPTION_NEGATIVE_QUANTITY = "The updated quantity for article would be negative. Operation not allowed.";
     //Pagination Exceptions
     public static final String EXCEPTION_PAGE_NUMBER_NEGATIVE = "Page number cannot be negative.";
     public static final String EXCEPTION_PAGE_SIZE_NEGATIVE = "Page size cannot be negative.";

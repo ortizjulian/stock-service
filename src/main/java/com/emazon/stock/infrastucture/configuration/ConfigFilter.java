@@ -31,7 +31,7 @@ public class ConfigFilter {
                                  //Article
                                 .requestMatchers(HttpMethod.POST,"/article/price").hasAuthority(SecurityConstants.ROLE_CLIENT)
                                 .requestMatchers(HttpMethod.POST,"/article/**").hasAuthority(SecurityConstants.ROLE_ADMIN)
-                                .requestMatchers(HttpMethod.PATCH,"/article/updateQuantity").hasAuthority(SecurityConstants.ROLE_WAREHOUSE_ASSISTANT)
+                                .requestMatchers(HttpMethod.PATCH,"/article/updateQuantity").hasAnyAuthority(SecurityConstants.ROLE_WAREHOUSE_ASSISTANT, SecurityConstants.ROLE_CLIENT)
                                 .requestMatchers(HttpMethod.GET, "/article/**").permitAll()
                                  //Category
                                 .requestMatchers(HttpMethod.POST,"/category/quantities").hasAuthority(SecurityConstants.ROLE_CLIENT)

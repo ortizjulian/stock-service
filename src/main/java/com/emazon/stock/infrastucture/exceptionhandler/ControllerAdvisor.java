@@ -71,6 +71,13 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(MESSAGE, paginationParametersInvalidException.getMessage()));
     }
 
+    @ExceptionHandler(NegativeQuantityException.class)
+    public ResponseEntity<Map<String, String>> handleNegativeQuantityException(
+            NegativeQuantityException negativeQuantityException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(MESSAGE, negativeQuantityException.getMessage()));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException methodArgumentNotValidException) {
         Map<String, String> errors = new HashMap<>();

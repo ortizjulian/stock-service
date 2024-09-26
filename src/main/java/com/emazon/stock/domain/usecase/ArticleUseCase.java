@@ -1,10 +1,7 @@
 package com.emazon.stock.domain.usecase;
 
 import com.emazon.stock.domain.api.IArticleServicePort;
-import com.emazon.stock.domain.exception.ArticleNotFoundException;
-import com.emazon.stock.domain.exception.BrandNotFoundException;
-import com.emazon.stock.domain.exception.CategoryNotFoundException;
-import com.emazon.stock.domain.exception.DuplicateCategoryException;
+import com.emazon.stock.domain.exception.*;
 import com.emazon.stock.domain.model.Article;
 import com.emazon.stock.domain.model.Category;
 import com.emazon.stock.domain.model.PageCustom;
@@ -76,11 +73,20 @@ public class ArticleUseCase implements IArticleServicePort {
 
     @Override
     public void updateQuantity(Long articleId, Integer quantity) {
-        if (!articlePersistencePort.existById(articleId)) {
+        Optional<Article> optionalArticle = articlePersistencePort.getArticleById(articleId);
+
+        if (optionalArticle.isEmpty()) {
             throw new ArticleNotFoundException(Constants.EXCEPTION_ARTICLE_NOT_FOUND_BY_ID +articleId);
         }
 
-        this.articlePersistencePort.updateQuantity(articleId,quantity);
+        Article article = optionalArticle.get();
+
+        Integer newQuantity = article.getQuantity() + quantity;
+
+        if (newQuantity < Constants.ZERO) {
+            throw new NegativeQuantityException(Constants.EXCEPTION_NEGATIVE_QUANTITY);
+        }
+        this.articlePersistencePort.updateQuantity(articleId, quantity);
     }
 
     @Override
