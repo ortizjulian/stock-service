@@ -2,7 +2,6 @@ package com.emazon.stock.application.dto;
 
 import com.emazon.stock.utils.Constants;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 public class UpdateQuantityRequest {
 
@@ -10,7 +9,6 @@ public class UpdateQuantityRequest {
     private Long articleId;
 
     @NotNull(message = Constants.EXCEPTION_ARTICLE_QUANTITY_NULL)
-    @Positive(message = Constants.EXCEPTION_ARTICLE_QUANTITY_POSITIVE)
     private Integer quantity;
 
     public UpdateQuantityRequest(Long articleId, Integer quantity) {
