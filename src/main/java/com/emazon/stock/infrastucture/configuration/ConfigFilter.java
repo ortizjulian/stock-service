@@ -26,7 +26,6 @@ public class ConfigFilter {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-                                .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/swagger-ui/**","/v3/api-docs/**").permitAll()
                                  //Article
                                 .requestMatchers(HttpMethod.POST,"/article/price").hasAuthority(SecurityConstants.ROLE_CLIENT)
